@@ -286,7 +286,12 @@ function PostDetail({ nextPost, post, previousPost, onBack, onNavigate }) {
         <PostContent />
       </div>
 
-      <nav className="post-navigation" aria-label="Post navigation">
+      <nav
+        className="post-navigation"
+        aria-label="Post navigation"
+        data-next={nextPost ? "true" : "false"}
+        data-previous={previousPost ? "true" : "false"}
+      >
         {previousPost ? (
           <button className="post-navigation-link" type="button" onClick={() => onNavigate(previousPost.id)}>
             <span className="post-navigation-label">이전 글</span>

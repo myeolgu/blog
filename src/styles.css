@@ -467,6 +467,26 @@ p {
   visibility: hidden;
 }
 
+.post-navigation[data-next="false"] {
+  grid-template-columns: minmax(0, 1fr) auto;
+  width: min(35rem, calc(100% - 2rem));
+}
+
+.post-navigation[data-previous="false"] {
+  grid-template-columns: auto minmax(0, 1fr);
+  width: min(35rem, calc(100% - 2rem));
+}
+
+.post-navigation[data-next="false"] > :empty,
+.post-navigation[data-previous="false"] > :empty {
+  display: none;
+}
+
+.post-navigation[data-next="false"][data-previous="false"] {
+  grid-template-columns: auto;
+  width: auto;
+}
+
 .post-navigation-link {
   display: grid;
   gap: 0.125rem;
