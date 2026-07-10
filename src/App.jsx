@@ -315,12 +315,12 @@ function AiPage() {
         </header>
         <div className="ai-map" aria-label="AI 지침 마인드맵">
           <svg className="map-lines" viewBox="0 0 1000 560" aria-hidden="true" preserveAspectRatio="none">
-            <line x1="500" y1="280" x2="210" y2="115" />
-            <line x1="500" y1="280" x2="785" y2="115" />
-            <line x1="500" y1="280" x2="170" y2="280" />
-            <line x1="500" y1="280" x2="830" y2="280" />
-            <line x1="500" y1="280" x2="260" y2="455" />
-            <line x1="500" y1="280" x2="745" y2="455" />
+            <line x1="200" y1="280" x2="440" y2="115" />
+            <line x1="200" y1="280" x2="850" y2="115" />
+            <line x1="200" y1="280" x2="440" y2="280" />
+            <line x1="200" y1="280" x2="850" y2="280" />
+            <line x1="200" y1="280" x2="440" y2="455" />
+            <line x1="200" y1="280" x2="850" y2="455" />
           </svg>
           {aiMapNodes.map((node) => (
             <div className={`map-node ${node.className}`} key={node.title}>

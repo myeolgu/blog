@@ -372,14 +372,14 @@ p {
 
 .map-core {
   top: 50%;
-  left: 50%;
+  left: 10%;
   width: 12rem;
   border-color: #1f6f5b;
   color: #ffffff;
   background: #1f6f5b;
   cursor: pointer;
   text-align: left;
-  transform: translate(-50%, -50%);
+  transform: translateY(-50%);
 }
 
 .map-core:hover {
@@ -407,31 +407,31 @@ p {
 
 .node-one {
   top: 2.5rem;
-  left: 10%;
+  left: 35%;
 }
 
 .node-two {
   top: 2.5rem;
-  right: 10%;
+  right: 6%;
 }
 
 .node-three {
   top: 42%;
-  left: 4%;
+  left: 35%;
 }
 
 .node-four {
   top: 42%;
-  right: 4%;
+  right: 6%;
 }
 
 .node-five {
   bottom: 2.5rem;
-  left: 15%;
+  left: 35%;
 }
 
 .node-six {
-  right: 15%;
+  right: 6%;
   bottom: 2.5rem;
 }
 
