@@ -1,8 +1,8 @@
-# Blog Content Guidelines
+# 블로그 콘텐츠 가이드
 
-- When the user provides a draft, notes, or other writing intended as a blog post, add it to the blog's post content.
-- Use the current date for a newly added post unless the user explicitly supplies a different publication date.
-- Store post files in `src/posts/<category>/` using the category name in lowercase (for example, CSS posts in `src/posts/css/` and Browser posts in `src/posts/browser/`).
+- 사용자가 블로그 글로 쓸 초안, 메모, 그 밖의 글을 제공하면 블로그 글 콘텐츠에 추가한다.
+- 새 글은 사용자가 발행일을 명시하지 않은 경우 현재 날짜를 사용한다.
+- 글 파일은 카테고리명을 소문자로 사용해 `src/posts/<category>/`에 저장한다. 예: CSS 글은 `src/posts/css/`, Browser 글은 `src/posts/browser/`에 저장한다.
 
 ## 커밋 메시지
 
@@ -61,7 +61,7 @@
 
 ## 규칙 8 - 쓰기 전에 읽어보세요
 
-- 코드를 추가하기 전에 exports, 직접 호출자, 공유 유틸리티를 읽어보세요.
+- 코드를 추가하기 전에 내보내기 항목, 직접 호출자, 공유 유틸리티를 읽어보세요.
 - "무관해 보인다"는 위험합니다.
 - 코드가 왜 그렇게 구조화됐는지 모르면 물어보세요.
 
