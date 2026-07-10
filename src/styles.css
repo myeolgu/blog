@@ -672,6 +672,35 @@ p {
   margin-bottom: 2rem;
 }
 
+.career-company {
+  padding: 1.25rem;
+  border: 1px solid #d9ded4;
+  border-radius: 0.875rem;
+  background: #fbfdf9;
+}
+
+.career-company > header {
+  display: flex;
+  align-items: baseline;
+  gap: 0.65rem;
+  padding-bottom: 1rem;
+  margin-bottom: 1.25rem;
+  border-bottom: 1px solid #e3e8e1;
+}
+
+.career-company > header p {
+  margin: 0;
+  color: #267152;
+  font-size: 0.75rem;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.career-company > header h3 {
+  margin: 0;
+  font-size: 1.25rem;
+}
+
 .career-timeline {
   display: grid;
   gap: 1rem;
@@ -735,7 +764,7 @@ p {
   background: #ffffff;
 }
 
-.career-card h3 {
+.career-card h4 {
   margin: 0 0 0.45rem;
   font-size: 1.05rem;
   line-height: 1.45;
@@ -1319,6 +1348,10 @@ p {
     grid-template-columns: 1fr;
     gap: 0.5rem;
     padding-left: 1.25rem;
+  }
+
+  .career-company {
+    padding: 1rem;
   }
 
   .career-entry::before {

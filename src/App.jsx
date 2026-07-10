@@ -485,31 +485,37 @@ function CareerPage() {
       <p className="eyebrow">Career</p>
       <h2 id="career-title">주엽의 커리어</h2>
       <p className="career-intro">프로젝트 경험과 사용 기술을 시간순으로 정리했습니다.</p>
-      <ol className="career-timeline">
-        {careerProjects.map((project) => (
-          <li className="career-entry" key={`${project.period}-${project.title}`}>
-            <time>{project.period}</time>
-            <div className="career-card">
-              <h3>{project.title}</h3>
-              <p>{project.summary}</p>
-              {project.responsibilities && (
-                <ul>
-                  {project.responsibilities.map((responsibility) => (
-                    <li key={responsibility}>{responsibility}</li>
-                  ))}
-                </ul>
-              )}
-              {project.stack && (
-                <div className="career-stack" aria-label="기술 스택">
-                  {project.stack.map((technology) => (
-                    <span key={technology}>{technology}</span>
-                  ))}
-                </div>
-              )}
-            </div>
-          </li>
-        ))}
-      </ol>
+      <section className="career-company" aria-labelledby="etribe-title">
+        <header>
+          <p>Company</p>
+          <h3 id="etribe-title">이트라이브</h3>
+        </header>
+        <ol className="career-timeline">
+          {careerProjects.map((project) => (
+            <li className="career-entry" key={`${project.period}-${project.title}`}>
+              <time>{project.period}</time>
+              <div className="career-card">
+                <h4>{project.title}</h4>
+                <p>{project.summary}</p>
+                {project.responsibilities && (
+                  <ul>
+                    {project.responsibilities.map((responsibility) => (
+                      <li key={responsibility}>{responsibility}</li>
+                    ))}
+                  </ul>
+                )}
+                {project.stack && (
+                  <div className="career-stack" aria-label="기술 스택">
+                    {project.stack.map((technology) => (
+                      <span key={technology}>{technology}</span>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </li>
+          ))}
+        </ol>
+      </section>
     </section>
   );
 }
