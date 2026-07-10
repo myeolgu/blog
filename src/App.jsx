@@ -35,8 +35,7 @@ export default function App() {
       <header className="site-header">
         <h1 className="brand-heading">
           <button className="brand" type="button" onClick={() => setSelectedPostId(null)}>
-            <span className="brand-mark">D</span>
-            Devlog
+            주엽의 기억날 때 메모하는 블로그
           </button>
         </h1>
       </header>

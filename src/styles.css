@@ -373,6 +373,23 @@ p {
   background: #202124;
 }
 
+.post-content .masked-video-source {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.post-content .masked-video-canvas {
+  display: block;
+  width: min(100%, 520px);
+  height: auto;
+  border: 1px solid #d9ded4;
+  border-radius: 8px;
+  background: #ffffff;
+}
+
 .post-content figcaption {
   margin-top: 10px;
   color: #6b7280;
