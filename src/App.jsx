@@ -60,8 +60,8 @@ export default function App() {
     setActiveTab(tab);
     setSelectedPostId(null);
 
-    if (tab === "blog" || tab === "ai") {
-      setActiveCategory(tab === "ai" ? "AI" : "All");
+    if (tab === "blog") {
+      setActiveCategory("All");
       setSearchTerm("");
       setCurrentPage(1);
     }
@@ -152,6 +152,8 @@ export default function App() {
       <section className="content-layout" id="posts">
         {activeTab === "career" ? (
           <CareerPage />
+        ) : activeTab === "ai" ? (
+          <AiPage />
         ) : selectedPost ? (
           <PostDetail
             nextPost={nextPost}
@@ -183,6 +185,10 @@ export default function App() {
       )}
     </main>
   );
+}
+
+function AiPage() {
+  return <section className="ai-page" aria-label="AI" />;
 }
 
 function CareerPage() {
