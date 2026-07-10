@@ -707,7 +707,7 @@ p {
 .career-entry {
   --timeline-axis: 9.5rem;
   --timeline-dot-top: 0.25rem;
-  --timeline-dot-size: 0.65rem;
+  --timeline-dot-size: 0.75rem;
   --timeline-dot-gap: 0.4rem;
   position: relative;
   display: grid;
@@ -746,6 +746,7 @@ p {
   left: var(--timeline-axis);
   width: var(--timeline-dot-size);
   height: var(--timeline-dot-size);
+  aspect-ratio: 1;
   border: 2px solid #ffffff;
   border-radius: 50%;
   background: #267152;
