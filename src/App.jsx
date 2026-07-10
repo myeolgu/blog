@@ -347,7 +347,7 @@ function AiPage() {
           <h2 id="ai-title">AGENTS.md</h2>
           <p>작업할 때 사용하는 공통 원칙입니다.</p>
         </div>
-        <a className="ai-download" download href={`${import.meta.env.BASE_URL}ai-guidelines.md`}>
+        <a className="ai-download" download="AGENTS.md" href={`${import.meta.env.BASE_URL}ai-guidelines.md`}>
           MD 다운로드
         </a>
       </header>
