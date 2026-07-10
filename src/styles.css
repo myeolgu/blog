@@ -717,7 +717,7 @@ p {
   position: absolute;
   top: 0.25rem;
   z-index: 1;
-  left: calc(var(--timeline-axis) - (var(--timeline-dot-size) / 2));
+  left: var(--timeline-axis);
   width: var(--timeline-dot-size);
   height: var(--timeline-dot-size);
   border: 2px solid #ffffff;
@@ -725,6 +725,7 @@ p {
   background: #267152;
   box-shadow: 0 0 0 1px #9fb8aa;
   content: "";
+  transform: translateX(-50%);
 }
 
 .career-card {
