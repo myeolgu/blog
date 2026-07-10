@@ -657,11 +657,6 @@ p {
   line-height: 1.6;
 }
 
-.career-page h2 {
-  margin-bottom: 12px;
-  font-size: clamp(2rem, 4vw, 3rem);
-}
-
 .career-page p:last-child {
   margin-bottom: 0;
   color: #5f6368;
