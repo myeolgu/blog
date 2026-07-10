@@ -296,6 +296,21 @@ p {
   line-height: 1.7;
 }
 
+.ai-back {
+  padding: 0;
+  margin-bottom: 0.75rem;
+  border: 0;
+  color: #1f6f5b;
+  background: transparent;
+  cursor: pointer;
+  font-size: 0.875rem;
+  font-weight: 700;
+}
+
+.ai-back::before {
+  content: "← ";
+}
+
 .ai-download {
   display: inline-flex;
   align-items: center;
@@ -316,6 +331,108 @@ p {
 .ai-download:focus-visible {
   outline: 3px solid rgba(31, 111, 91, 0.35);
   outline-offset: 3px;
+}
+
+.ai-map {
+  position: relative;
+  min-height: 35rem;
+  overflow: hidden;
+  border: 1px solid #d9ded4;
+  border-radius: 0.75rem;
+  background:
+    radial-gradient(circle at center, rgba(231, 243, 238, 0.9), transparent 24rem),
+    #ffffff;
+}
+
+.map-lines {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.map-lines line {
+  stroke: #bfd5ca;
+  stroke-width: 2;
+  stroke-linecap: round;
+}
+
+.map-core,
+.map-node {
+  position: absolute;
+  display: grid;
+  gap: 0.25rem;
+  width: 11rem;
+  padding: 1rem;
+  border: 1px solid #d9ded4;
+  border-radius: 0.75rem;
+  background: #ffffff;
+  box-shadow: 0 0.5rem 1.25rem rgba(31, 111, 91, 0.08);
+}
+
+.map-core {
+  top: 50%;
+  left: 50%;
+  width: 12rem;
+  border-color: #1f6f5b;
+  color: #ffffff;
+  background: #1f6f5b;
+  cursor: pointer;
+  text-align: left;
+  transform: translate(-50%, -50%);
+}
+
+.map-core:hover {
+  background: #185947;
+}
+
+.map-core:focus-visible {
+  outline: 3px solid rgba(31, 111, 91, 0.35);
+  outline-offset: 4px;
+}
+
+.map-core strong,
+.map-node strong {
+  font-size: 1rem;
+}
+
+.map-core span,
+.map-node span {
+  font-size: 0.8rem;
+}
+
+.map-node {
+  color: #3f4d47;
+}
+
+.node-one {
+  top: 2.5rem;
+  left: 10%;
+}
+
+.node-two {
+  top: 2.5rem;
+  right: 10%;
+}
+
+.node-three {
+  top: 42%;
+  left: 4%;
+}
+
+.node-four {
+  top: 42%;
+  right: 4%;
+}
+
+.node-five {
+  bottom: 2.5rem;
+  left: 15%;
+}
+
+.node-six {
+  right: 15%;
+  bottom: 2.5rem;
 }
 
 .ai-guide {
@@ -897,6 +1014,29 @@ p {
 
   .video-examples {
     grid-template-columns: 1fr;
+  }
+
+  .ai-map {
+    display: grid;
+    gap: 0.75rem;
+    min-height: 0;
+    padding: 1rem;
+    background: #ffffff;
+  }
+
+  .map-lines {
+    display: none;
+  }
+
+  .map-core,
+  .map-node {
+    position: static;
+    width: 100%;
+    transform: none;
+  }
+
+  .map-core {
+    order: -1;
   }
 
   .post-navigation {

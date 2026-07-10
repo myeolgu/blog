@@ -4,6 +4,14 @@ import { posts } from "./posts";
 
 const categories = ["All", "HTML", "CSS", "JavaScript", "React", "Browser", "AI"];
 const postsPerPage = 9;
+const aiMapNodes = [
+  { className: "node-one", title: "생각하고 시작", description: "가정과 불확실성" },
+  { className: "node-two", title: "단순하게 해결", description: "최소 코드와 범위" },
+  { className: "node-three", title: "최소 변경", description: "기존 관행 존중" },
+  { className: "node-four", title: "성공 기준", description: "확인될 때까지 반복" },
+  { className: "node-five", title: "도구 선택", description: "판단에만 모델 사용" },
+  { className: "node-six", title: "검증과 기록", description: "테스트와 체크포인트" },
+];
 const aiGuidelines = [
   {
     title: "규칙 1 - 코딩 전에 생각하세요",
@@ -294,11 +302,49 @@ export default function App() {
 }
 
 function AiPage() {
+  const [showGuide, setShowGuide] = useState(false);
+
+  if (!showGuide) {
+    return (
+      <section className="ai-page" aria-labelledby="ai-title">
+        <header className="ai-heading">
+          <div>
+            <h2 id="ai-title">AI 지침 지도</h2>
+            <p>작업에 사용하는 지침 문서를 한곳에 모아둡니다.</p>
+          </div>
+        </header>
+        <div className="ai-map" aria-label="AI 지침 마인드맵">
+          <svg className="map-lines" viewBox="0 0 1000 560" aria-hidden="true" preserveAspectRatio="none">
+            <line x1="500" y1="280" x2="210" y2="115" />
+            <line x1="500" y1="280" x2="785" y2="115" />
+            <line x1="500" y1="280" x2="170" y2="280" />
+            <line x1="500" y1="280" x2="830" y2="280" />
+            <line x1="500" y1="280" x2="260" y2="455" />
+            <line x1="500" y1="280" x2="745" y2="455" />
+          </svg>
+          {aiMapNodes.map((node) => (
+            <div className={`map-node ${node.className}`} key={node.title}>
+              <strong>{node.title}</strong>
+              <span>{node.description}</span>
+            </div>
+          ))}
+          <button className="map-core" type="button" onClick={() => setShowGuide(true)}>
+            <strong>AGENTS.md</strong>
+            <span>공통 작업 지침</span>
+          </button>
+        </div>
+      </section>
+    );
+  }
+
   return (
     <section className="ai-page" aria-labelledby="ai-title">
       <header className="ai-heading">
         <div>
-          <h2 id="ai-title">AI 지침</h2>
+          <button className="ai-back" type="button" onClick={() => setShowGuide(false)}>
+            AI 지침 지도
+          </button>
+          <h2 id="ai-title">AGENTS.md</h2>
           <p>작업할 때 사용하는 공통 원칙입니다.</p>
         </div>
         <a className="ai-download" download href={`${import.meta.env.BASE_URL}ai-guidelines.md`}>
