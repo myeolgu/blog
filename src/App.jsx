@@ -1,58 +1,145 @@
+import { useMemo, useState } from "react";
 import { Search } from "lucide-react";
-import PostCard from "./components/PostCard.jsx";
-import { posts } from "./data/posts.js";
+import { posts } from "./posts";
+
+const categories = ["All", "HTML", "CSS", "JavaScript", "React", "Browser", "Archive"];
 
 export default function App() {
-  const featuredPost = posts[0];
-  const latestPosts = posts.slice(1);
+  const [activeCategory, setActiveCategory] = useState("All");
+  const [searchTerm, setSearchTerm] = useState("");
+  const [selectedPostId, setSelectedPostId] = useState(null);
+
+  const filteredPosts = useMemo(() => {
+    const normalizedTerm = searchTerm.trim().toLowerCase();
+
+    return posts.filter((post) => {
+      const matchesCategory = activeCategory === "All" || post.category === activeCategory;
+      const searchableText = [post.title, post.excerpt, post.category, ...post.tags]
+        .join(" ")
+        .toLowerCase();
+      const matchesSearch = !normalizedTerm || searchableText.includes(normalizedTerm);
+
+      return matchesCategory && matchesSearch;
+    });
+  }, [activeCategory, searchTerm]);
+
+  const selectedPost = posts.find((post) => post.id === selectedPostId);
+
+  function handleCategoryChange(category) {
+    setActiveCategory(category);
+    setSelectedPostId(null);
+  }
 
   return (
     <main className="app-shell">
       <header className="site-header">
-        <a className="brand" href="/" aria-label="React Blog home">
-          React Blog
-        </a>
-        <nav className="site-nav" aria-label="Primary navigation">
-          <a href="#latest">Latest</a>
-          <a href="#archive">Archive</a>
-          <a href="#about">About</a>
-        </nav>
+        <h1 className="brand-heading">
+          <button className="brand" type="button" onClick={() => setSelectedPostId(null)}>
+            <span className="brand-mark">D</span>
+            Devlog
+          </button>
+        </h1>
       </header>
 
-      <section className="intro" aria-labelledby="intro-title">
-        <div>
-          <p className="eyebrow">Codex-ready React blog</p>
-          <h1 id="intro-title">글을 먼저 보여주는 React 블로그</h1>
-          <p className="intro-copy">
-            Skill 지침과 React 앱 골격을 함께 잡아두어 다음 구현을 빠르게 이어갈 수 있습니다.
-          </p>
-        </div>
-        <label className="search-box">
-          <Search size={18} aria-hidden="true" />
-          <span className="sr-only">Search posts</span>
-          <input type="search" placeholder="Search posts" />
-        </label>
-      </section>
+      {!selectedPost && (
+        <section className="toolbar" aria-label="Post filters">
+          <label className="search-box">
+            <Search size={18} aria-hidden="true" />
+            <span className="sr-only">Search posts</span>
+            <input
+              type="search"
+              placeholder="Search posts"
+              value={searchTerm}
+              onChange={(event) => setSearchTerm(event.target.value)}
+            />
+          </label>
 
-      <section className="featured" aria-labelledby="featured-title">
-        <div className="section-heading">
-          <p className="eyebrow">Featured</p>
-          <h2 id="featured-title">오늘의 기준점</h2>
-        </div>
-        <PostCard post={featuredPost} />
-      </section>
+          <div className="category-tabs" aria-label="Categories">
+            {categories.map((category) => (
+              <button
+                key={category}
+                className={category === activeCategory ? "is-active" : ""}
+                type="button"
+                onClick={() => handleCategoryChange(category)}
+              >
+                {category}
+              </button>
+            ))}
+          </div>
+        </section>
+      )}
 
-      <section id="latest" className="latest" aria-labelledby="latest-title">
-        <div className="section-heading">
-          <p className="eyebrow">Latest</p>
-          <h2 id="latest-title">최근 글</h2>
-        </div>
-        <div className="post-grid">
-          {latestPosts.map((post) => (
-            <PostCard key={post.id} post={post} />
-          ))}
-        </div>
+      <section className="content-layout" id="posts">
+        {selectedPost ? (
+          <PostDetail post={selectedPost} onBack={() => setSelectedPostId(null)} />
+        ) : (
+          <PostGrid posts={filteredPosts} onSelectPost={setSelectedPostId} />
+        )}
       </section>
     </main>
+  );
+}
+
+function PostGrid({ posts, onSelectPost }) {
+  if (posts.length === 0) {
+    return (
+      <section className="empty-state" aria-labelledby="empty-title">
+        <p className="eyebrow">Posts</p>
+        <h2 id="empty-title">조건에 맞는 글이 없습니다.</h2>
+        <p>검색어를 바꾸거나 다른 카테고리를 선택해보세요.</p>
+      </section>
+    );
+  }
+
+  return (
+    <div className="post-grid">
+      {posts.map((post) => (
+        <article className="post-card" key={post.id}>
+          <div className="post-card__topline">
+            <span className="category-pill">{post.category}</span>
+            <time dateTime={post.date}>{post.date}</time>
+          </div>
+          <h2>{post.title}</h2>
+          <p>{post.excerpt}</p>
+          <ul className="tag-list" aria-label={`${post.title} tags`}>
+            {post.tags.map((tag) => (
+              <li key={tag}>{tag}</li>
+            ))}
+          </ul>
+          <button className="read-button" type="button" onClick={() => onSelectPost(post.id)}>
+            글 읽기
+          </button>
+        </article>
+      ))}
+    </div>
+  );
+}
+
+function PostDetail({ post, onBack }) {
+  const PostContent = post.Content;
+
+  return (
+    <article className="post-article">
+      <button className="back-button" type="button" onClick={onBack}>
+        목록으로
+      </button>
+      <header className="post-article__header">
+        <p className="eyebrow">{post.category}</p>
+        <h2>{post.title}</h2>
+        <div className="post-article__meta">
+          <span>{post.author}</span>
+          <time dateTime={post.date}>{post.date}</time>
+        </div>
+        <ul className="tag-list" aria-label={`${post.title} tags`}>
+          {post.tags.map((tag) => (
+            <li key={tag}>{tag}</li>
+          ))}
+        </ul>
+      </header>
+
+      <div className="post-content">
+        <PostContent />
+      </div>
+    </article>
   );
 }
