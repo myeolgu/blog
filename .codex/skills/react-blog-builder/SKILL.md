@@ -1,38 +1,38 @@
 ---
 name: react-blog-builder
-description: Build and maintain this repository's React blog application. Use when Codex is asked to create pages, components, routes, styling, content models, blog UI, editor-like interactions, or frontend behavior for this React-based blog project.
+description: 이 저장소의 React 블로그 애플리케이션을 구축하고 유지 관리한다. Codex에게 페이지, 컴포넌트, 라우트, 스타일, 콘텐츠 모델, 블로그 UI, 에디터형 상호작용, 프론트엔드 동작을 만들어 달라고 요청할 때 사용한다.
 ---
 
-# React Blog Builder
+# React 블로그 빌더
 
-## Workflow
+## 작업 흐름
 
-1. Inspect the existing project structure before editing.
-2. Preserve the current React/Vite conventions unless the user asks for a different stack.
-3. Keep UI changes component-based and place reusable pieces in `src/components`.
-4. Keep content-shaped data in `src/data` until a real CMS, API, or database is introduced.
-5. Prefer accessible HTML, semantic landmarks, keyboard-friendly controls, and responsive CSS.
-6. Validate with `npm run build` after code changes when dependencies are installed.
+1. 수정하기 전에 기존 프로젝트 구조를 확인한다.
+2. 사용자가 다른 스택을 요청하지 않는 한 현재 React/Vite 규약을 유지한다.
+3. UI 변경은 컴포넌트 기반으로 작성하고, 재사용 가능한 요소는 `src/components`에 둔다.
+4. 실제 CMS, API, 데이터베이스를 도입하기 전까지 콘텐츠 형태의 데이터는 `src/data`에 둔다.
+5. 접근성 있는 HTML, 시맨틱 랜드마크, 키보드 친화적인 컨트롤, 반응형 CSS를 우선한다.
+6. 의존성이 설치되어 있다면 코드 변경 후 `npm run build`로 검증한다.
 
-## Project Shape
+## 프로젝트 구조
 
-- App shell: `src/App.jsx`
-- React entry: `src/main.jsx`
-- Global styles: `src/styles.css`
-- Reusable UI: `src/components`
-- Temporary content data: `src/data`
-- Static assets: `public`
+- 앱 셸: `src/App.jsx`
+- React 진입점: `src/main.jsx`
+- 전역 스타일: `src/styles.css`
+- 재사용 UI: `src/components`
+- 임시 콘텐츠 데이터: `src/data`
+- 정적 에셋: `public`
 
-## React Rules
+## React 규칙
 
-- Use functional components and hooks.
-- Keep component props explicit and small.
-- Avoid adding state management libraries until prop flow becomes genuinely painful.
-- Use CSS modules or plain CSS consistently; this project starts with plain CSS.
-- Keep visual sections unframed unless they represent repeated content cards or tool panels.
+- 함수형 컴포넌트와 훅을 사용한다.
+- 컴포넌트 속성은 명시적이고 작게 유지한다.
+- 속성 흐름이 실제로 복잡해지기 전까지 상태 관리 라이브러리를 추가하지 않는다.
+- CSS 모듈 또는 일반 CSS 중 하나를 일관되게 사용한다. 이 프로젝트는 일반 CSS로 시작한다.
+- 반복 콘텐츠 카드나 도구 패널이 아닌 시각 섹션에는 불필요한 프레임을 추가하지 않는다.
 
-## References
+## 참고 문서
 
-- Read `references/react-blog-guidelines.md` before making broad UI, routing, content model, or styling decisions.
-- Read `style/css-naming.md` before adding or changing CSS class names.
-- Read `templates/post-template.md` before adding a new blog post or restructuring an existing post.
+- 넓은 범위의 UI, 라우팅, 콘텐츠 모델, 스타일을 결정하기 전에 `references/react-blog-guidelines.md`를 읽는다.
+- CSS 클래스명을 추가하거나 변경하기 전에 `style/css-naming.md`를 읽는다.
+- 새 블로그 글을 추가하거나 기존 글을 재구성하기 전에 `templates/post-template.md`를 읽는다.
