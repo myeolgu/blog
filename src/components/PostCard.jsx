@@ -4,7 +4,13 @@ export default function PostCard({ post, featured = false }) {
   return (
     <article className={featured ? "post-card post-card-featured" : "post-card"}>
       <div className="post-card-topline">
-        <span className="content-label content-label-category">{post.category}</span>
+        <div className="category-list">
+          {(post.categories ?? [post.category]).map((category) => (
+            <span className="content-label content-label-category" key={category}>
+              {category}
+            </span>
+          ))}
+        </div>
         <span>{post.series}</span>
       </div>
 

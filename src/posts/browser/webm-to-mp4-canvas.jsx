@@ -6,6 +6,7 @@ export const webmToMp4CanvasPost = {
   author: "이주엽",
   date: "2026-05-11",
   category: "Browser",
+  categories: ["Browser", "AI"],
   excerpt:
     "iOS에서 VP9 WebM의 알파 채널을 안전하게 표현하기 위해, 컬러 프레임과 알파 마스크를 세로로 결합한 H.264 MP4를 Canvas에서 복원하는 방법입니다.",
   tags: ["WebM", "MP4", "Canvas", "iOS", "FFmpeg"],

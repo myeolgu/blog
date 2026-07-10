@@ -5,6 +5,10 @@ import { posts } from "./posts";
 const categories = ["All", "HTML", "CSS", "JavaScript", "React", "Browser", "AI"];
 const postsPerPage = 9;
 
+function getPostCategories(post) {
+  return post.categories ?? [post.category];
+}
+
 export default function App() {
   const [activeCategory, setActiveCategory] = useState("All");
   const [searchTerm, setSearchTerm] = useState("");
@@ -26,8 +30,9 @@ export default function App() {
     const normalizedTerm = searchTerm.trim().toLowerCase();
 
     return posts.filter((post) => {
-      const matchesCategory = activeCategory === "All" || post.category === activeCategory;
-      const searchableText = [post.title, post.excerpt, post.category, ...post.tags]
+      const postCategories = getPostCategories(post);
+      const matchesCategory = activeCategory === "All" || postCategories.includes(activeCategory);
+      const searchableText = [post.title, post.excerpt, ...postCategories, ...post.tags]
         .join(" ")
         .toLowerCase();
       const matchesSearch = !normalizedTerm || searchableText.includes(normalizedTerm);
@@ -205,7 +210,13 @@ function PostGrid({ posts, onSelectPost }) {
           }}
         >
           <div className="post-card-topline">
-            <span className="content-label content-label-category">{post.category}</span>
+            <div className="category-list">
+              {getPostCategories(post).map((category) => (
+                <span className="content-label content-label-category" key={category}>
+                  {category}
+                </span>
+              ))}
+            </div>
             <time dateTime={post.date}>{post.date}</time>
           </div>
           <h2>{post.title}</h2>
