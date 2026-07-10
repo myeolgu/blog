@@ -59,6 +59,12 @@ export default function App() {
   function handleTabChange(tab) {
     setActiveTab(tab);
     setSelectedPostId(null);
+
+    if (tab === "blog" || tab === "ai") {
+      setActiveCategory(tab === "ai" ? "AI" : "All");
+      setSearchTerm("");
+      setCurrentPage(1);
+    }
   }
 
   function handlePostNavigation(postId) {
@@ -92,6 +98,14 @@ export default function App() {
             onClick={() => handleTabChange("blog")}
           >
             Blog
+          </button>
+          <button
+            aria-current={activeTab === "ai" ? "page" : undefined}
+            className={activeTab === "ai" ? "is-active" : ""}
+            type="button"
+            onClick={() => handleTabChange("ai")}
+          >
+            AI
           </button>
           <button
             aria-current={activeTab === "career" ? "page" : undefined}
