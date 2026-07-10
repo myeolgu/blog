@@ -41,7 +41,7 @@ export default function App() {
       <header className="site-header">
         <h1 className="brand-heading">
           <button className="brand" type="button" onClick={() => handleTabChange("blog")}>
-            주엽의 기억날 때 메모하는 블로그
+            주엽 기록실.log
           </button>
         </h1>
         <nav className="site-nav" aria-label="Primary navigation">
