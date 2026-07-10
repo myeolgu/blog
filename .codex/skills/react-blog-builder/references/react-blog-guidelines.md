@@ -1,39 +1,39 @@
-# React Blog Guidelines
+# React 블로그 가이드
 
-## Product Direction
+## 제품 방향
 
-Build the project as a practical personal or editorial blog, not a marketing landing page. The first screen should show usable blog content, navigation, and reading paths.
+프로젝트를 마케팅 랜딩 페이지가 아닌, 실용적인 개인 또는 에디토리얼 블로그로 만든다. 첫 화면에는 바로 사용할 수 있는 블로그 콘텐츠, 내비게이션, 글 읽기 경로가 보여야 한다.
 
-## UI Priorities
+## UI 우선순위
 
-- Make posts easy to scan by title, date, category, excerpt, and reading time.
-- Keep typography comfortable for long-form reading.
-- Support mobile layouts from the start.
-- Use restrained visual styling with clear contrast and spacing.
-- Avoid decorative elements that do not help reading, filtering, navigation, or publishing.
+- 제목, 날짜, 카테고리, 요약, 읽기 시간으로 글을 쉽게 훑을 수 있게 한다.
+- 긴 글을 읽기 편한 타이포그래피를 유지한다.
+- 처음부터 모바일 레이아웃을 지원한다.
+- 명확한 대비와 여백을 사용해 절제된 시각 스타일을 적용한다.
+- 글 읽기, 필터링, 탐색, 발행에 도움이 되지 않는 장식 요소는 피한다.
 
-## Suggested Features
+## 권장 기능
 
-- Post list with featured/latest sections
-- Category or tag filters
-- Search input for title/excerpt/category
-- Post detail route when routing is added
-- About/profile section
-- Archive page
+- 주요 글·최신 글 영역이 있는 글 목록
+- 카테고리 또는 태그 필터
+- 제목·요약·카테고리 검색 입력창
+- 라우팅을 추가할 때 사용할 글 상세 경로
+- 소개·프로필 영역
+- 아카이브 페이지
 
-## Data Model
+## 데이터 모델
 
-Start with local data shaped like:
+우선 아래와 같은 형태의 로컬 데이터를 사용한다.
 
 ```js
 {
-  id: "stable-slug",
-  title: "Post title",
-  excerpt: "Short summary",
+  id: "안정적인-슬러그",
+  title: "글 제목",
+  excerpt: "짧은 요약",
   category: "React",
   date: "2026-07-10",
-  readTime: "4 min read"
+  readTime: "4분 읽기"
 }
 ```
 
-Keep IDs slug-like and stable so routes can use them later.
+나중에 라우트에서 사용할 수 있도록 ID는 슬러그 형태로 안정적으로 유지한다.
