@@ -297,8 +297,13 @@ function AiPage() {
   return (
     <section className="ai-page" aria-labelledby="ai-title">
       <header className="ai-heading">
-        <h2 id="ai-title">AI 지침</h2>
-        <p>작업할 때 사용하는 공통 원칙입니다.</p>
+        <div>
+          <h2 id="ai-title">AI 지침</h2>
+          <p>작업할 때 사용하는 공통 원칙입니다.</p>
+        </div>
+        <a className="ai-download" download href={`${import.meta.env.BASE_URL}ai-guidelines.md`}>
+          MD 다운로드
+        </a>
       </header>
       <div className="ai-guides">
         {aiGuidelines.map((guideline) => (

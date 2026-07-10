@@ -277,6 +277,11 @@ p {
 }
 
 .ai-heading {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: end;
+  justify-content: space-between;
+  gap: 1rem;
   margin-bottom: 2rem;
 }
 
@@ -289,6 +294,28 @@ p {
   margin-bottom: 0;
   color: #5f6368;
   line-height: 1.7;
+}
+
+.ai-download {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.5rem;
+  padding: 0 0.875rem;
+  border: 1px solid #1f6f5b;
+  border-radius: 0.5rem;
+  color: #ffffff;
+  background: #1f6f5b;
+  font-size: 0.875rem;
+  font-weight: 700;
+}
+
+.ai-download:hover {
+  background: #185947;
+}
+
+.ai-download:focus-visible {
+  outline: 3px solid rgba(31, 111, 91, 0.35);
+  outline-offset: 3px;
 }
 
 .ai-guides {
