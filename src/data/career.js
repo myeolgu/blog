@@ -69,7 +69,7 @@ export const careerProjects = [
     period: "2023.01 ~ 2023.07",
     title: "삼성자산운용 펀드솔루션 운영 및 브랜드 사이트 리뉴얼",
     summary: "삼성자산운용 펀드솔루션 운영, 동아제약 OTC 제품 페이지 구축, LG화학 Main·Career 리뉴얼",
-    responsibilities: [
+    outcomes: [
       "동아제약 제품 페이지에 Lottie 애니메이션을 적용해 인터랙션과 유지보수성을 높였습니다.",
       "LG화학 리뉴얼에 GSAP을 도입해 복잡한 인터랙션을 구현했습니다.",
     ],

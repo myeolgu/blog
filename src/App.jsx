@@ -216,6 +216,7 @@ export default function App() {
   const [activeCategory, setActiveCategory] = useState("All");
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedPostId, setSelectedPostId] = useState(null);
+  const [selectedCareerProject, setSelectedCareerProject] = useState(null);
   const [activeTab, setActiveTab] = useState("blog");
   const [showTopButton, setShowTopButton] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
@@ -262,6 +263,7 @@ export default function App() {
   function handleTabChange(tab) {
     setActiveTab(tab);
     setSelectedPostId(null);
+    setSelectedCareerProject(null);
 
     if (tab === "blog") {
       setActiveCategory("All");
@@ -277,6 +279,16 @@ export default function App() {
 
   function handlePostList() {
     setSelectedPostId(null);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+
+  function handleCareerSelect(project) {
+    setSelectedCareerProject(project);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+
+  function handleCareerList() {
+    setSelectedCareerProject(null);
     window.scrollTo({ top: 0, behavior: "smooth" });
   }
 
@@ -354,7 +366,11 @@ export default function App() {
 
       <section className="content-layout" id="posts">
         {activeTab === "career" ? (
-          <CareerPage />
+          selectedCareerProject ? (
+            <CareerDetail project={selectedCareerProject} onBack={handleCareerList} />
+          ) : (
+            <CareerPage onSelect={handleCareerSelect} />
+          )
         ) : activeTab === "ai" ? (
           <AiPage />
         ) : selectedPost ? (
@@ -479,7 +495,7 @@ function InstructionTree({ node, onOpenFile }) {
   );
 }
 
-function CareerPage() {
+function CareerPage({ onSelect }) {
   return (
     <section className="career-page" aria-labelledby="career-title">
       <h2 className="career-title" id="career-title">커리어</h2>
@@ -493,7 +509,19 @@ function CareerPage() {
           {careerProjects.map((project) => (
             <li className="career-entry" key={`${project.period}-${project.title}`}>
               <time>{project.period}</time>
-              <div className="career-card">
+              <article
+                aria-label={`${project.title} 상세 보기`}
+                className="career-card"
+                role="button"
+                tabIndex={0}
+                onClick={() => onSelect(project)}
+                onKeyDown={(event) => {
+                  if (event.key === "Enter" || event.key === " ") {
+                    event.preventDefault();
+                    onSelect(project);
+                  }
+                }}
+              >
                 <h4>{project.title}</h4>
                 <p>{project.summary}</p>
                 {project.responsibilities && (
@@ -510,12 +538,62 @@ function CareerPage() {
                     ))}
                   </div>
                 )}
-              </div>
+              </article>
             </li>
           ))}
         </ol>
       </section>
     </section>
+  );
+}
+
+function CareerDetail({ project, onBack }) {
+  const sections = [
+    { title: "담당 업무", items: project.tasks },
+    { title: "문제·해결", items: project.challenges },
+    { title: "성과", items: project.outcomes ?? project.responsibilities },
+  ];
+
+  return (
+    <article className="career-detail" aria-labelledby="career-project-title">
+      <button className="career-back" type="button" onClick={onBack}>
+        목록으로
+      </button>
+      <header className="career-detail-header">
+        <time>{project.period}</time>
+        <h2 id="career-project-title">{project.title}</h2>
+      </header>
+      <section className="career-detail-section">
+        <h3>프로젝트 개요</h3>
+        <p>{project.summary}</p>
+      </section>
+      {sections.map((section) => (
+        <section className="career-detail-section" key={section.title}>
+          <h3>{section.title}</h3>
+          {section.items?.length ? (
+            <ul>
+              {section.items.map((item) => (
+                <li key={item}>{item}</li>
+              ))}
+            </ul>
+          ) : (
+            <p className="career-detail-pending">정리 중입니다.</p>
+          )}
+        </section>
+      ))}
+      <section className="career-detail-section">
+        <h3>기술 스택</h3>
+        {project.stack?.length ? (
+          <div className="career-stack">
+            {project.stack.map((technology) => (
+              <span key={technology}>{technology}</span>
+            ))}
+          </div>
+        ) : (
+          <p className="career-detail-pending">정리 중입니다.</p>
+        )}
+      </section>
+    </article>
   );
 }
 

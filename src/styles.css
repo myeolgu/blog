@@ -267,7 +267,7 @@ p {
 }
 
 .career-page {
-  max-width: 700px;
+  max-width: 100%;
   padding: 32px 0;
 }
 
@@ -714,13 +714,13 @@ p {
   display: grid;
   grid-template-columns: 9rem minmax(0, 1fr);
   gap: 1.25rem;
-  padding-bottom: 1rem;
+  padding-bottom: 0;
 }
 
 .career-entry::before {
   position: absolute;
   top: calc(var(--timeline-dot-top) + var(--timeline-dot-size) + var(--timeline-dot-gap));
-  bottom: 0.2rem;
+  bottom: 0;
   left: var(--timeline-axis);
   width: 1px;
   background: #d9ded4;
@@ -751,9 +751,7 @@ p {
   border: 2px solid #ffffff;
   border-radius: 50%;
   background: #267152;
-  box-shadow:
-    0 0 0 1px #9fb8aa,
-    0 0 0 0.4rem #fbfdf9;
+  box-shadow: 0 0 0 1px #9fb8aa;
   content: "";
   transform: translateX(-50%);
 }
@@ -763,6 +761,18 @@ p {
   border: 1px solid #d9ded4;
   border-radius: 0.75rem;
   background: #ffffff;
+  cursor: pointer;
+  transition: outline-color 160ms ease;
+}
+
+.career-card:hover {
+  outline: 2px solid #267152;
+  outline-offset: 2px;
+}
+
+.career-card:focus-visible {
+  outline: 3px solid rgba(38, 113, 82, 0.5);
+  outline-offset: 3px;
 }
 
 .career-card h4 {
@@ -800,6 +810,75 @@ p {
   background: #e8f5ee;
   font-size: 0.75rem;
   font-weight: 700;
+}
+
+.career-detail {
+  max-width: 700px;
+  padding: 2rem;
+  border: 1px solid #d9ded4;
+  border-radius: 0.875rem;
+  background: #ffffff;
+}
+
+.career-back {
+  padding: 0;
+  border: 0;
+  color: #267152;
+  background: transparent;
+  cursor: pointer;
+  font-weight: 750;
+}
+
+.career-back:hover {
+  text-decoration: underline;
+}
+
+.career-back:focus-visible {
+  outline: 3px solid rgba(38, 113, 82, 0.35);
+  outline-offset: 3px;
+}
+
+.career-detail-header {
+  padding: 1.25rem 0;
+  border-bottom: 1px solid #e3e8e1;
+}
+
+.career-detail-header time {
+  color: #267152;
+  font-size: 0.85rem;
+  font-weight: 800;
+}
+
+.career-detail-header h2 {
+  margin: 0.5rem 0 0;
+  font-size: clamp(1.625rem, 3vw, 2.25rem);
+  line-height: 1.3;
+}
+
+.career-detail-section {
+  padding-top: 1.5rem;
+}
+
+.career-detail-section h3 {
+  margin: 0 0 0.65rem;
+  font-size: 1rem;
+}
+
+.career-detail-section p,
+.career-detail-section ul {
+  margin: 0;
+  color: #5f6368;
+  line-height: 1.7;
+}
+
+.career-detail-section ul {
+  display: grid;
+  gap: 0.5rem;
+  padding-left: 1.2rem;
+}
+
+.career-detail-pending {
+  color: #8a948f !important;
 }
 
 .section-heading {
@@ -1354,6 +1433,10 @@ p {
 
   .career-company {
     padding: 1rem;
+  }
+
+  .career-detail {
+    padding: 1.25rem;
   }
 
   .career-entry::before {
