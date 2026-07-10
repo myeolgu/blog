@@ -54,6 +54,7 @@ button {
   justify-content: space-between;
   gap: 24px;
   padding: 12px 0;
+  border-bottom: 1px solid #d9ded4;
   background: rgba(246, 247, 243, 0.92);
   backdrop-filter: blur(10px);
 }
@@ -215,7 +216,6 @@ p {
   gap: 16px;
   align-items: center;
   padding: 20px 0;
-  border-top: 1px solid #d9ded4;
   border-bottom: 1px solid #d9ded4;
 }
 
@@ -276,6 +276,10 @@ p {
   padding: 2rem 0;
 }
 
+.ai-page-detail {
+  padding-bottom: 7rem;
+}
+
 .ai-heading {
   display: flex;
   flex-wrap: wrap;
@@ -302,21 +306,6 @@ p {
   color: #267152;
   background: #e8f5ee;
   font-size: 0.9em;
-}
-
-.ai-back {
-  padding: 0;
-  margin-bottom: 0.75rem;
-  border: 0;
-  color: #1f6f5b;
-  background: transparent;
-  cursor: pointer;
-  font-size: 0.875rem;
-  font-weight: 700;
-}
-
-.ai-back::before {
-  content: "← ";
 }
 
 .ai-download {

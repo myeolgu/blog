@@ -421,12 +421,9 @@ function AiPage() {
   }
 
   return (
-    <section className="ai-page" aria-labelledby="ai-title">
+    <section className="ai-page ai-page-detail" aria-labelledby="ai-title">
       <header className="ai-heading">
         <div>
-          <button className="ai-back" type="button" onClick={() => setSelectedInstruction(null)}>
-            AI 지침 지도
-          </button>
           <h2 id="ai-title">{selectedInstruction.path}</h2>
           <p>AI 지침 지도와 다운로드 ZIP에 동일하게 포함되는 원본 파일입니다.</p>
         </div>
@@ -439,6 +436,11 @@ function AiPage() {
           <pre>{selectedInstruction.content}</pre>
         </section>
       </div>
+      <nav className="post-navigation" aria-label="AI 지침 탐색" data-next="false" data-previous="false">
+        <button className="post-navigation-list" type="button" onClick={() => setSelectedInstruction(null)}>
+          목록으로
+        </button>
+      </nav>
     </section>
   );
 }
