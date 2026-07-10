@@ -681,6 +681,8 @@ p {
 }
 
 .career-entry {
+  --timeline-axis: 9.5rem;
+  --timeline-dot-size: 0.65rem;
   position: relative;
   display: grid;
   grid-template-columns: 9rem minmax(0, 1fr);
@@ -692,7 +694,7 @@ p {
   position: absolute;
   top: 0.45rem;
   bottom: -1rem;
-  left: 9.5rem;
+  left: var(--timeline-axis);
   width: 1px;
   background: #d9ded4;
   content: "";
@@ -711,12 +713,13 @@ p {
   line-height: 1.5;
 }
 
-.career-entry time::after {
+.career-entry::after {
   position: absolute;
   top: 0.25rem;
-  right: -0.825rem;
-  width: 0.65rem;
-  height: 0.65rem;
+  z-index: 1;
+  left: calc(var(--timeline-axis) - (var(--timeline-dot-size) / 2));
+  width: var(--timeline-dot-size);
+  height: var(--timeline-dot-size);
   border: 2px solid #ffffff;
   border-radius: 50%;
   background: #267152;
@@ -1311,6 +1314,7 @@ p {
   }
 
   .career-entry {
+    --timeline-axis: 0.25rem;
     grid-template-columns: 1fr;
     gap: 0.5rem;
     padding-left: 1.25rem;
@@ -1319,13 +1323,11 @@ p {
   .career-entry::before {
     top: 0.4rem;
     bottom: -1rem;
-    left: 0.25rem;
+    left: var(--timeline-axis);
   }
 
-  .career-entry time::after {
+  .career-entry::after {
     top: 0.2rem;
-    right: auto;
-    left: -1.25rem;
   }
 
   .ai-map {
