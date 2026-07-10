@@ -1,56 +1,56 @@
-# Blog Post Template Rules
+# 블로그 글 템플릿 규칙
 
-## Purpose
+## 목적
 
-Every post uses the shared detail layout rendered by `PostDetail` in `src/App.jsx`. Post files provide only content; they must not add their own outer article, header, metadata, or bottom navigation.
+모든 글은 `src/App.jsx`의 `PostDetail`이 렌더링하는 공통 상세 레이아웃을 사용한다. 글 파일은 콘텐츠만 제공하며, 자체적인 바깥 article, header, 메타데이터, 하단 내비게이션을 추가하면 안 된다.
 
-## Post Data
+## 글 데이터
 
-Each post exports one object with these fields:
+각 글은 아래 필드를 가진 객체 하나를 내보낸다.
 
 ```jsx
 export const examplePost = {
-  id: "stable-kebab-slug",
-  title: "Post title",
+  id: "안정적인-케밥-슬러그",
+  title: "글 제목",
   author: "이주엽",
   date: "YYYY-MM-DD",
-  category: "Primary category",
-  categories: ["Primary category"],
-  excerpt: "Card summary, ideally within three lines.",
-  tags: ["Tag"],
+  category: "기본 카테고리",
+  categories: ["기본 카테고리"],
+  excerpt: "카드 요약. 가급적 세 줄 이내로 작성한다.",
+  tags: ["태그"],
   Content: ExamplePostContent
 };
 ```
 
-- Keep `id` stable and kebab-case.
-- Set `category` as the primary category.
-- Add `categories` only when a post needs to appear in more than one category filter.
-- Save the file in `src/posts/<primary-category-lowercase>/` and export it from `src/posts/index.js` in newest-first order.
+- `id`는 안정적으로 유지하고 케밥 케이스를 사용한다.
+- `category`는 대표 카테고리로 설정한다.
+- 글이 둘 이상의 카테고리 필터에 나타나야 할 때만 `categories`를 추가한다.
+- 파일은 `src/posts/<대표-카테고리-소문자>/`에 저장하고, `src/posts/index.js`에서 최신 글이 먼저 오도록 내보낸다.
 
-## Content Structure
+## 콘텐츠 구조
 
-Use this order when it fits the subject:
+주제에 맞는 경우 아래 순서를 사용한다.
 
-1. `작업 배경` or `문제`
+1. `작업 배경` 또는 `문제`
 2. 핵심 기준, 결정, 또는 접근 방식
 3. 구현 예시 또는 변경 내용
 4. 검증·결과·주의사항
 5. `정리`
 
-- Use `<h3>` for body sections.
-- Use `<p>` for explanation and `<ul>` for concise, scannable points.
-- Use `<pre><code>` for code examples.
-- Keep code comments such as `// Before` and `// After` in `<span className="code-comment">` when highlighting is useful.
-- Use `<figure>`, `<img>`, and `<figcaption>` for screenshots or other proof images. Store assets in `public/posts/` with descriptive kebab-case filenames.
-- Add video demonstrations only when they materially help explain the post.
+- 본문 섹션에는 `<h3>`를 사용한다.
+- 설명에는 `<p>`, 짧고 훑기 쉬운 항목에는 `<ul>`을 사용한다.
+- 코드 예시에는 `<pre><code>`를 사용한다.
+- 강조가 유용한 경우 `// Before`, `// After` 같은 코드 주석은 `<span className="code-comment">` 안에 둔다.
+- 스크린샷이나 그 밖의 근거 이미지는 `<figure>`, `<img>`, `<figcaption>`을 사용한다. 에셋은 설명적인 케밥 케이스 파일명으로 `public/posts/`에 저장한다.
+- 글 설명에 실질적인 도움이 될 때만 영상 데모를 추가한다.
 
-## Do Not Duplicate Shared Layout
+## 공통 레이아웃 중복 금지
 
-Do not render these inside a post `Content` component:
+글의 `Content` 컴포넌트 안에 아래 요소를 렌더링하지 않는다.
 
 - `<article className="post-article">`
-- Title, author, date, or tag header
-- Category eyebrow
-- Previous/next/list navigation
+- 제목, 작성자, 날짜, 태그 헤더
+- 카테고리 보조 제목
+- 이전 글·다음 글·목록 내비게이션
 
-Those elements are rendered once by the shared detail layout.
+이 요소들은 공통 상세 레이아웃에서 한 번만 렌더링한다.
