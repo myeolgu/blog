@@ -1,17 +1,9 @@
 import { useEffect, useMemo, useState } from "react";
-import { ArrowUp, Search } from "lucide-react";
+import { ArrowUp, ChevronDown, FileCode2, Folder, FolderTree, Search } from "lucide-react";
 import { posts } from "./posts";
 
 const categories = ["All", "HTML", "CSS", "JavaScript", "React", "Browser", "AI"];
 const postsPerPage = 9;
-const aiMapNodes = [
-  { className: "node-one", title: "생각하고 시작", description: "가정과 불확실성" },
-  { className: "node-two", title: "단순하게 해결", description: "최소 코드와 범위" },
-  { className: "node-three", title: "최소 변경", description: "기존 관행 존중" },
-  { className: "node-four", title: "성공 기준", description: "확인될 때까지 반복" },
-  { className: "node-five", title: "도구 선택", description: "판단에만 모델 사용" },
-  { className: "node-six", title: "검증과 기록", description: "테스트와 체크포인트" },
-];
 const aiGuidelines = [
   {
     title: "규칙 1 - 코딩 전에 생각하세요",
@@ -303,6 +295,7 @@ export default function App() {
 
 function AiPage() {
   const [showGuide, setShowGuide] = useState(false);
+  const [isCodexOpen, setIsCodexOpen] = useState(false);
 
   if (!showGuide) {
     return (
@@ -310,28 +303,58 @@ function AiPage() {
         <header className="ai-heading">
           <div>
             <h2 id="ai-title">AI 지침 지도</h2>
-            <p>작업에 사용하는 지침 문서를 한곳에 모아둡니다.</p>
+            <p>프로젝트 작업에 사용할 AI 지침을 <code>.codex/skills/</code>에 분류해 정리합니다.</p>
           </div>
         </header>
-        <div className="ai-map" aria-label="AI 지침 마인드맵">
-          <svg className="map-lines" viewBox="0 0 1000 560" aria-hidden="true" preserveAspectRatio="none">
-            <line x1="200" y1="280" x2="440" y2="115" />
-            <line x1="200" y1="280" x2="850" y2="115" />
-            <line x1="200" y1="280" x2="440" y2="280" />
-            <line x1="200" y1="280" x2="850" y2="280" />
-            <line x1="200" y1="280" x2="440" y2="455" />
-            <line x1="200" y1="280" x2="850" y2="455" />
-          </svg>
-          {aiMapNodes.map((node) => (
-            <div className={`map-node ${node.className}`} key={node.title}>
-              <strong>{node.title}</strong>
-              <span>{node.description}</span>
+        <div className="ai-map" aria-label="Codex 작업 지침 마인드맵">
+          <div className="map-toolbar">
+            <span className="map-toolbar-path">BLOG <b>/</b> .codex <b>/</b> skills</span>
+            <span className="map-toolbar-status">CODEX SKILLS</span>
+          </div>
+          <div className="map-tree">
+            <button className="map-agents" type="button" onClick={() => setShowGuide(true)}>
+              <FileCode2 aria-hidden="true" size={20} strokeWidth={2.2} />
+              <span>
+                <strong>AGENTS.md</strong>
+                <small>프로젝트 공통 작업 지침</small>
+              </span>
+              <span className="map-skills-open">열기 →</span>
+            </button>
+            <div className="map-codex">
+              <button
+                aria-controls="codex-skills"
+                aria-expanded={isCodexOpen}
+                className="map-codex-head"
+                type="button"
+                onClick={() => setIsCodexOpen((isOpen) => !isOpen)}
+              >
+                <FolderTree aria-hidden="true" size={24} strokeWidth={2.2} />
+                <span>
+                  <strong>.codex</strong>
+                  <small>Codex 설정과 작업 도구</small>
+                </span>
+                <ChevronDown aria-hidden="true" className={isCodexOpen ? "map-chevron is-open" : "map-chevron"} size={19} />
+              </button>
+              <div className={isCodexOpen ? "map-codex-body is-open" : "map-codex-body"} id="codex-skills">
+                <div className="map-codex-content">
+                  <div className="map-skills">
+                    <Folder aria-hidden="true" size={21} strokeWidth={2.2} />
+                    <span>
+                      <strong>skills</strong>
+                      <small>기능별 작업 지침</small>
+                    </span>
+                  </div>
+                  <div className="map-styles">
+                    <Folder aria-hidden="true" size={18} strokeWidth={2.1} />
+                    <span>
+                      <strong>styles</strong>
+                      <small>스타일 관련 작업 지침</small>
+                    </span>
+                  </div>
+                </div>
+              </div>
             </div>
-          ))}
-          <button className="map-core" type="button" onClick={() => setShowGuide(true)}>
-            <strong>AGENTS.md</strong>
-            <span>공통 작업 지침</span>
-          </button>
+          </div>
         </div>
       </section>
     );
@@ -344,15 +367,15 @@ function AiPage() {
           <button className="ai-back" type="button" onClick={() => setShowGuide(false)}>
             AI 지침 지도
           </button>
-          <h2 id="ai-title">AGENTS.md</h2>
-          <p>작업할 때 사용하는 공통 원칙입니다.</p>
+          <h2 id="ai-title">Codex 작업 지침</h2>
+          <p>프로젝트에서 Codex와 AI 도구가 작업할 때 따르는 공통 원칙입니다.</p>
         </div>
         <a className="ai-download" download="AGENTS.md" href={`${import.meta.env.BASE_URL}ai-guidelines.md`}>
           MD 다운로드
         </a>
       </header>
       <div className="ai-guides">
-        <section className="ai-guide" aria-label="AGENTS.md 지침">
+        <section className="ai-guide" aria-label="Codex 작업 지침">
           {aiGuidelines.map((guideline) => (
             <div className="ai-rule" key={guideline.title}>
               <h3>{guideline.title}</h3>
