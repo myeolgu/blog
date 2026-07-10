@@ -389,6 +389,10 @@ p {
   background: transparent;
 }
 
+.post-content pre .code-comment {
+  color: #8fce7b;
+}
+
 .post-content figure {
   margin: 28px 0 0;
 }

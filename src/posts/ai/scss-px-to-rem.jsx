@@ -38,22 +38,34 @@ function ScssPxToRemContent() {
         함께 비례 축소됩니다.
       </p>
       <pre>
-        <code>{`html {
+        <code>
+          <span className="code-comment">// Before</span>
+          {`\nhtml {
+  font-size: 10px;
+}
+
+`}
+          <span className="code-comment">// After</span>
+          {`\nhtml {
   font-size: clamp(7.5px, calc(0px + 0.5208vw), 10px);
-}`}</code>
+}`}
+        </code>
       </pre>
 
       <h3>단위 전환</h3>
       <pre>
-        <code>{`// Before
-padding: 20px;
+        <code>
+          <span className="code-comment">// Before</span>
+          {`\npadding: 20px;
 border: 1px solid #ddd;
 font-size: 14px;
 
-// After
-padding: 2rem;
+`}
+          <span className="code-comment">// After</span>
+          {`\npadding: 2rem;
 border: 0.1rem solid #ddd;
-font-size: 1.4rem;`}</code>
+font-size: 1.4rem;`}
+        </code>
       </pre>
 
       <h3>AI를 활용한 범위 정리</h3>
