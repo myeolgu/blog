@@ -714,7 +714,7 @@ p {
 .career-entry time::after {
   position: absolute;
   top: 0.25rem;
-  right: -1.53rem;
+  right: -0.825rem;
   width: 0.65rem;
   height: 0.65rem;
   border: 2px solid #ffffff;
