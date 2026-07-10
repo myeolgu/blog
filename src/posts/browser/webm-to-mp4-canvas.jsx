@@ -23,6 +23,46 @@ function WebmToMp4CanvasContent() {
         <code>videos/</code>, MP4 결과물은 <code>videos/mp4/</code>에 둡니다.
       </p>
 
+      <h3>폴더 구조</h3>
+      <p>영상의 기획부터 변환, 편집, 검수, 최종 전달까지 파일 성격에 따라 경로를 분리합니다.</p>
+      <pre>
+        <code>{`video-create/
+├── AGENTS.md
+├── .codex/skills/
+├── docs/
+├── content/
+│   ├── briefs/
+│   └── scripts/
+├── assets/
+│   ├── raw/
+│   └── processed/
+├── videos/
+│   └── mp4/
+├── projects/
+└── exports/
+    ├── drafts/
+    └── final/`}</code>
+      </pre>
+      <ul>
+        <li><code>content/briefs/</code>와 <code>content/scripts/</code>에는 목표·대상·대본·씬 구성 같은 기획 자료를 둡니다.</li>
+        <li><code>assets/raw/</code>는 수정하지 않는 원본, <code>assets/processed/</code>는 변환·리사이즈·생성된 에셋을 관리합니다.</li>
+        <li><code>videos/</code>는 현재 샘플과 변환 기준 파일, <code>videos/mp4/</code>는 WebM에서 생성된 MP4 결과물 전용입니다.</li>
+        <li><code>projects/</code>에는 편집 프로젝트를, <code>exports/drafts/</code>와 <code>exports/final/</code>에는 리뷰본과 최종본을 버전별로 저장합니다.</li>
+      </ul>
+
+      <h3>AI 지침 기반 변환</h3>
+      <p>
+        <code>video-create</code> 폴더에는 Codex가 따르는 <code>AGENTS.md</code>와
+        <code>.codex/skills/</code> 지침이 설치되어 있습니다. 사용자가 WebM 파일을 제공하면 이
+        지침에 따라 원본은 보존하고, FFmpeg로 iOS Canvas용 MP4를 생성하는 흐름입니다.
+      </p>
+      <ul>
+        <li><code>video-content-planning</code>은 영상 기획·대본·씬 구성 작업을 정리합니다.</li>
+        <li><code>video-asset-workflow</code>는 원본·가공 에셋·프로젝트·export 파일의 위치와 이름을 관리합니다.</li>
+        <li>VP9 알파 WebM은 <code>libvpx-vp9</code> 디코더로 읽고, 변환 결과는 기본적으로 <code>videos/mp4/&lt;원본명&gt;_mp4.mp4</code>에 저장합니다.</li>
+        <li>변환 전에는 FFmpeg 설치 여부를, 변환 후에는 <code>ffprobe</code>로 코덱·크기·프레임레이트를 확인합니다.</li>
+      </ul>
+
       <h3>문제</h3>
       <p>
         <code>cat_health_report.webm</code>은 알파 메타데이터가 포함된 VP9 WebM입니다. iOS에서는

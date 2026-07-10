@@ -1,14 +1,26 @@
-import { useMemo, useState } from "react";
-import { Search } from "lucide-react";
+import { useEffect, useMemo, useState } from "react";
+import { ArrowUp, Search } from "lucide-react";
 import { posts } from "./posts";
 
-const categories = ["All", "HTML", "CSS", "JavaScript", "React", "Browser", "Archive"];
+const categories = ["All", "HTML", "CSS", "JavaScript", "React", "Browser", "AI"];
+const postsPerPage = 9;
 
 export default function App() {
   const [activeCategory, setActiveCategory] = useState("All");
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedPostId, setSelectedPostId] = useState(null);
   const [activeTab, setActiveTab] = useState("blog");
+  const [showTopButton, setShowTopButton] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+
+  useEffect(() => {
+    const handleScroll = () => setShowTopButton(window.scrollY > 240);
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll();
+
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   const filteredPosts = useMemo(() => {
     const normalizedTerm = searchTerm.trim().toLowerCase();
@@ -24,10 +36,18 @@ export default function App() {
     });
   }, [activeCategory, searchTerm]);
 
+  const totalPages = Math.max(1, Math.ceil(filteredPosts.length / postsPerPage));
+  const pageStart = (currentPage - 1) * postsPerPage;
+  const paginatedPosts = filteredPosts.slice(pageStart, pageStart + postsPerPage);
+
   const selectedPost = posts.find((post) => post.id === selectedPostId);
+  const selectedPostIndex = posts.findIndex((post) => post.id === selectedPostId);
+  const previousPost = selectedPostIndex < posts.length - 1 ? posts[selectedPostIndex + 1] : null;
+  const nextPost = selectedPostIndex > 0 ? posts[selectedPostIndex - 1] : null;
 
   function handleCategoryChange(category) {
     setActiveCategory(category);
+    setCurrentPage(1);
     setSelectedPostId(null);
   }
 
@@ -36,8 +56,23 @@ export default function App() {
     setSelectedPostId(null);
   }
 
+  function handlePostNavigation(postId) {
+    setSelectedPostId(postId);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+
+  function handlePostList() {
+    setSelectedPostId(null);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+
+  function handlePageChange(page) {
+    setCurrentPage(page);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+
   return (
-    <main className="app-shell">
+    <main className={selectedPost ? "app-shell post-view" : "app-shell"}>
       <header className="site-header">
         <h1 className="brand-heading">
           <button className="brand" type="button" onClick={() => handleTabChange("blog")}>
@@ -73,7 +108,10 @@ export default function App() {
               type="search"
               placeholder="Search posts"
               value={searchTerm}
-              onChange={(event) => setSearchTerm(event.target.value)}
+              onChange={(event) => {
+                setSearchTerm(event.target.value);
+                setCurrentPage(1);
+              }}
             />
           </label>
 
@@ -96,11 +134,34 @@ export default function App() {
         {activeTab === "career" ? (
           <CareerPage />
         ) : selectedPost ? (
-          <PostDetail post={selectedPost} onBack={() => setSelectedPostId(null)} />
+          <PostDetail
+            nextPost={nextPost}
+            post={selectedPost}
+            previousPost={previousPost}
+            onBack={handlePostList}
+            onNavigate={handlePostNavigation}
+          />
         ) : (
-          <PostGrid posts={filteredPosts} onSelectPost={setSelectedPostId} />
+          <>
+            <PostGrid posts={paginatedPosts} onSelectPost={setSelectedPostId} />
+            {totalPages > 1 && (
+              <Pagination currentPage={currentPage} totalPages={totalPages} onChange={handlePageChange} />
+            )}
+          </>
         )}
       </section>
+
+      {showTopButton && (
+        <button
+          aria-label="Back to top"
+          className="top-button"
+          type="button"
+          onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+        >
+          <ArrowUp size={18} aria-hidden="true" />
+          <span>Top</span>
+        </button>
+      )}
     </main>
   );
 }
@@ -162,16 +223,40 @@ function PostGrid({ posts, onSelectPost }) {
   );
 }
 
-function PostDetail({ post, onBack }) {
+function Pagination({ currentPage, totalPages, onChange }) {
+  return (
+    <nav className="pagination" aria-label="Post pages">
+      <button disabled={currentPage === 1} type="button" onClick={() => onChange(currentPage - 1)}>
+        Previous
+      </button>
+      {Array.from({ length: totalPages }, (_, index) => {
+        const page = index + 1;
+
+        return (
+          <button
+            aria-current={page === currentPage ? "page" : undefined}
+            className={page === currentPage ? "pagination-current" : ""}
+            key={page}
+            type="button"
+            onClick={() => onChange(page)}
+          >
+            {page}
+          </button>
+        );
+      })}
+      <button disabled={currentPage === totalPages} type="button" onClick={() => onChange(currentPage + 1)}>
+        Next
+      </button>
+    </nav>
+  );
+}
+
+function PostDetail({ nextPost, post, previousPost, onBack, onNavigate }) {
   const PostContent = post.Content;
 
   return (
     <article className="post-article">
-      <button className="back-button" type="button" onClick={onBack}>
-        목록으로
-      </button>
       <header className="post-article-header">
-        <p className="eyebrow">{post.category}</p>
         <h2>{post.title}</h2>
         <div className="post-article-meta">
           <span>{post.author}</span>
@@ -189,6 +274,32 @@ function PostDetail({ post, onBack }) {
       <div className="post-content">
         <PostContent />
       </div>
+
+      <nav className="post-navigation" aria-label="Post navigation">
+        {previousPost ? (
+          <button className="post-navigation-link" type="button" onClick={() => onNavigate(previousPost.id)}>
+            <span className="post-navigation-label">이전 글</span>
+            <strong>{previousPost.title}</strong>
+          </button>
+        ) : (
+          <span />
+        )}
+        <button className="post-navigation-list" type="button" onClick={onBack}>
+          목록으로
+        </button>
+        {nextPost ? (
+          <button
+            className="post-navigation-link post-navigation-next"
+            type="button"
+            onClick={() => onNavigate(nextPost.id)}
+          >
+            <span className="post-navigation-label">다음 글</span>
+            <strong>{nextPost.title}</strong>
+          </button>
+        ) : (
+          <span />
+        )}
+      </nav>
     </article>
   );
 }
