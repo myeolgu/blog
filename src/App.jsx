@@ -481,8 +481,8 @@ function InstructionTree({ node, onOpenFile }) {
 
 function CareerPage() {
   return (
-    <section className="career-page" aria-label="커리어">
-      <p className="eyebrow">Career</p>
+    <section className="career-page" aria-labelledby="career-title">
+      <h2 className="career-title" id="career-title">커리어</h2>
       <p className="career-intro">프로젝트 경험과 사용 기술을 시간순으로 정리했습니다.</p>
       <section className="career-company" aria-labelledby="etribe-title">
         <header>

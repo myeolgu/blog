@@ -289,7 +289,8 @@ p {
   margin-bottom: 1.25rem;
 }
 
-.ai-heading h2 {
+.ai-heading h2,
+.career-title {
   margin-bottom: 0.75rem;
   font-size: clamp(1.625rem, 3vw, 2.25rem);
 }
