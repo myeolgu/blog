@@ -59,8 +59,8 @@ button {
 }
 
 .brand,
-.post-card__meta,
-.post-card__topline,
+.post-card-meta,
+.post-card-topline,
 .tag-list li,
 .profile-actions {
   display: flex;
@@ -74,6 +74,33 @@ button {
   cursor: pointer;
   gap: 10px;
   font-weight: 850;
+}
+
+.site-nav {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.site-nav button {
+  min-height: 34px;
+  padding: 0 2px;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  color: #6b7280;
+  background: transparent;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.site-nav button:hover,
+.site-nav button.is-active {
+  color: #1f6f5b;
+}
+
+.site-nav button.is-active {
+  border-bottom-color: #1f6f5b;
 }
 
 .brand-mark {
@@ -239,11 +266,27 @@ p {
   padding-top: 28px;
 }
 
+.career-page {
+  max-width: 700px;
+  padding: 32px 0;
+}
+
+.career-page h2 {
+  margin-bottom: 12px;
+  font-size: clamp(2rem, 4vw, 3rem);
+}
+
+.career-page p:last-child {
+  margin-bottom: 0;
+  color: #5f6368;
+  line-height: 1.7;
+}
+
 .section-heading {
   margin-bottom: 16px;
 }
 
-.section-heading--spaced {
+.section-heading-spaced {
   margin-top: 30px;
 }
 
@@ -277,18 +320,18 @@ p {
   background: #ffffff;
 }
 
-.post-article__header {
+.post-article-header {
   padding-bottom: 24px;
   border-bottom: 1px solid #e6eadf;
 }
 
-.post-article__header h2 {
+.post-article-header h2 {
   margin: 0 0 12px;
   font-size: clamp(2rem, 4vw, 3.5rem);
   line-height: 1.08;
 }
 
-.post-article__meta {
+.post-article-meta {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
@@ -297,7 +340,7 @@ p {
   font-size: 0.95rem;
 }
 
-.post-article__meta span::after {
+.post-article-meta span::after {
   content: "·";
   margin-left: 10px;
 }
@@ -406,15 +449,14 @@ p {
 
 .post-card {
   display: grid;
+  grid-template-rows: 1.625rem 3.75rem 5.1rem auto;
   gap: 14px;
+  align-content: start;
   min-height: 260px;
   padding: 22px;
   border: 1px solid #d9ded4;
   border-radius: 8px;
   background: #ffffff;
-}
-
-.post-card--clickable {
   cursor: pointer;
   transition:
     border-color 160ms ease,
@@ -422,24 +464,24 @@ p {
     transform 160ms ease;
 }
 
-.post-card--clickable:hover {
+.post-card:hover {
   border-color: #9fb8aa;
   box-shadow: 0 8px 20px rgba(31, 111, 91, 0.08);
   transform: translateY(-2px);
 }
 
-.post-card--clickable:focus-visible {
+.post-card:focus-visible {
   outline: 3px solid rgba(31, 111, 91, 0.35);
   outline-offset: 3px;
 }
 
-.post-card--featured {
+.post-card-featured {
   min-height: 300px;
   border-color: #9fb8aa;
   background: #fbfdf9;
 }
 
-.post-card__topline {
+.post-card-topline {
   justify-content: space-between;
   gap: 12px;
   color: #6b7280;
@@ -450,33 +492,41 @@ p {
 .content-label {
   display: inline-flex;
   align-items: center;
-  min-height: 26px;
-  padding: 0 9px;
-  border-radius: 999px;
+  min-height: 1.625rem;
+  padding: 0 0.5625rem;
+  border-radius: 999rem;
   font-size: 0.75rem;
   font-weight: 600;
   letter-spacing: -0.01em;
   line-height: 1;
 }
 
-.content-label--category {
+.content-label-category {
   color: #1f6f5b;
   background: #e7f3ee;
 }
 
-.content-label--tag {
+.content-label-tag {
   color: #5b4b19;
   background: #fff4cf;
 }
 
 .post-card h2 {
+  display: -webkit-box;
+  overflow: hidden;
   margin-bottom: 0;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
   font-size: 1.5rem;
   line-height: 1.25;
 }
 
 .post-card p {
+  display: -webkit-box;
+  overflow: hidden;
   margin-bottom: 0;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
   color: #5f6368;
   line-height: 1.7;
 }
@@ -499,7 +549,7 @@ p {
 .tag-list {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
+  gap: 0.5rem;
   padding: 0;
   margin: 0;
   list-style: none;
@@ -509,7 +559,7 @@ p {
   gap: 5px;
 }
 
-.post-card__meta {
+.post-card-meta {
   align-self: end;
   flex-wrap: wrap;
   gap: 14px;
@@ -517,7 +567,7 @@ p {
   font-size: 0.9rem;
 }
 
-.post-card__meta span {
+.post-card-meta span {
   display: inline-flex;
   align-items: center;
   gap: 6px;

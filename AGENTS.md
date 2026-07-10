@@ -2,6 +2,7 @@
 
 - When the user provides a draft, notes, or other writing intended as a blog post, add it to the blog's post content.
 - Use the current date for a newly added post unless the user explicitly supplies a different publication date.
+- Store post files in `src/posts/<category>/` using the category name in lowercase (for example, CSS posts in `src/posts/css/` and Browser posts in `src/posts/browser/`).
 
 ## 규칙 1 - 코딩 전에 생각하세요
 
