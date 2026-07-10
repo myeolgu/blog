@@ -35,3 +35,4 @@ description: Build and maintain this repository's React blog application. Use wh
 
 - Read `references/react-blog-guidelines.md` before making broad UI, routing, content model, or styling decisions.
 - Read `style/css-naming.md` before adding or changing CSS class names.
+- Read `templates/post-template.md` before adding a new blog post or restructuring an existing post.
