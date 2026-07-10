@@ -272,7 +272,7 @@ p {
 }
 
 .ai-page {
-  max-width: 820px;
+  width: 100%;
   padding: 2rem 0;
 }
 
@@ -316,10 +316,6 @@ p {
 .ai-download:focus-visible {
   outline: 3px solid rgba(31, 111, 91, 0.35);
   outline-offset: 3px;
-}
-
-.ai-guides {
-  max-width: 100%;
 }
 
 .ai-guide {
