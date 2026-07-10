@@ -4,6 +4,10 @@
 - Use the current date for a newly added post unless the user explicitly supplies a different publication date.
 - Store post files in `src/posts/<category>/` using the category name in lowercase (for example, CSS posts in `src/posts/css/` and Browser posts in `src/posts/browser/`).
 
+## 커밋 메시지
+
+- 이 블로그 저장소에서 커밋할 때는 한글 커밋 메시지를 사용한다.
+
 ## 규칙 1 - 코딩 전에 생각하세요
 
 - 가정을 명시적으로 말하세요.
