@@ -668,6 +668,106 @@ p {
   line-height: 1.7;
 }
 
+.career-intro {
+  margin-bottom: 2rem;
+}
+
+.career-timeline {
+  display: grid;
+  gap: 1rem;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.career-entry {
+  position: relative;
+  display: grid;
+  grid-template-columns: 9rem minmax(0, 1fr);
+  gap: 1.25rem;
+  padding-bottom: 1rem;
+}
+
+.career-entry::before {
+  position: absolute;
+  top: 0.45rem;
+  bottom: -1rem;
+  left: 9.5rem;
+  width: 1px;
+  background: #d9ded4;
+  content: "";
+}
+
+.career-entry:last-child::before {
+  bottom: 1rem;
+}
+
+.career-entry time {
+  position: relative;
+  z-index: 1;
+  color: #267152;
+  font-size: 0.85rem;
+  font-weight: 800;
+  line-height: 1.5;
+}
+
+.career-entry time::after {
+  position: absolute;
+  top: 0.25rem;
+  right: -1.53rem;
+  width: 0.65rem;
+  height: 0.65rem;
+  border: 2px solid #ffffff;
+  border-radius: 50%;
+  background: #267152;
+  box-shadow: 0 0 0 1px #9fb8aa;
+  content: "";
+}
+
+.career-card {
+  padding: 1.15rem 1.25rem;
+  border: 1px solid #d9ded4;
+  border-radius: 0.75rem;
+  background: #ffffff;
+}
+
+.career-card h3 {
+  margin: 0 0 0.45rem;
+  font-size: 1.05rem;
+  line-height: 1.45;
+}
+
+.career-card p {
+  margin: 0;
+  color: #5f6368;
+  line-height: 1.65;
+}
+
+.career-card ul {
+  display: grid;
+  gap: 0.5rem;
+  padding-left: 1.2rem;
+  margin: 0.85rem 0 0;
+  color: #4b5563;
+  line-height: 1.6;
+}
+
+.career-stack {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-top: 0.85rem;
+}
+
+.career-stack span {
+  padding: 0.25rem 0.5rem;
+  border-radius: 999px;
+  color: #267152;
+  background: #e8f5ee;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
 .section-heading {
   margin-bottom: 16px;
 }
@@ -1208,6 +1308,24 @@ p {
 
   .video-examples {
     grid-template-columns: 1fr;
+  }
+
+  .career-entry {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+    padding-left: 1.25rem;
+  }
+
+  .career-entry::before {
+    top: 0.4rem;
+    bottom: -1rem;
+    left: 0.25rem;
+  }
+
+  .career-entry time::after {
+    top: 0.2rem;
+    right: auto;
+    left: -1.25rem;
   }
 
   .ai-map {
