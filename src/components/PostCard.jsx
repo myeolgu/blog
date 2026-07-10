@@ -4,7 +4,7 @@ export default function PostCard({ post, featured = false }) {
   return (
     <article className={featured ? "post-card post-card--featured" : "post-card"}>
       <div className="post-card__topline">
-        <span className="category-pill">{post.category}</span>
+        <span className="content-label content-label--category">{post.category}</span>
         <span>{post.series}</span>
       </div>
 
@@ -13,7 +13,7 @@ export default function PostCard({ post, featured = false }) {
 
       <ul className="tag-list" aria-label={`${post.title} tags`}>
         {post.tags.map((tag) => (
-          <li key={tag}>
+          <li className="content-label content-label--tag" key={tag}>
             <Tag size={13} aria-hidden="true" />
             {tag}
           </li>

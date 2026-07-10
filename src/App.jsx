@@ -94,21 +94,33 @@ function PostGrid({ posts, onSelectPost }) {
   return (
     <div className="post-grid">
       {posts.map((post) => (
-        <article className="post-card" key={post.id}>
+        <article
+          aria-label={`${post.title} 글 읽기`}
+          className="post-card post-card--clickable"
+          key={post.id}
+          role="button"
+          tabIndex={0}
+          onClick={() => onSelectPost(post.id)}
+          onKeyDown={(event) => {
+            if (event.key === "Enter" || event.key === " ") {
+              event.preventDefault();
+              onSelectPost(post.id);
+            }
+          }}
+        >
           <div className="post-card__topline">
-            <span className="category-pill">{post.category}</span>
+            <span className="content-label content-label--category">{post.category}</span>
             <time dateTime={post.date}>{post.date}</time>
           </div>
           <h2>{post.title}</h2>
           <p>{post.excerpt}</p>
           <ul className="tag-list" aria-label={`${post.title} tags`}>
             {post.tags.map((tag) => (
-              <li key={tag}>{tag}</li>
+              <li className="content-label content-label--tag" key={tag}>
+                {tag}
+              </li>
             ))}
           </ul>
-          <button className="read-button" type="button" onClick={() => onSelectPost(post.id)}>
-            글 읽기
-          </button>
         </article>
       ))}
     </div>
@@ -132,7 +144,9 @@ function PostDetail({ post, onBack }) {
         </div>
         <ul className="tag-list" aria-label={`${post.title} tags`}>
           {post.tags.map((tag) => (
-            <li key={tag}>{tag}</li>
+            <li className="content-label content-label--tag" key={tag}>
+              {tag}
+            </li>
           ))}
         </ul>
       </header>
