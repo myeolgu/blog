@@ -1,4 +1,4 @@
-const instructionSources = import.meta.glob("../../ai/**/*.md", {
+const instructionSources = import.meta.glob(["../../ai/AGENTS.md", "../../ai/.codex/skills/**/*.md"], {
   eager: true,
   import: "default",
   query: "?raw",
