@@ -306,16 +306,18 @@ function AiPage() {
         </a>
       </header>
       <div className="ai-guides">
-        {aiGuidelines.map((guideline) => (
-          <section className="ai-guide" key={guideline.title}>
-            <h3>{guideline.title}</h3>
-            <ul>
-              {guideline.items.map((item) => (
-                <li key={item}>{item}</li>
-              ))}
-            </ul>
-          </section>
-        ))}
+        <section className="ai-guide" aria-label="AGENTS.md 지침">
+          {aiGuidelines.map((guideline) => (
+            <div className="ai-rule" key={guideline.title}>
+              <h3>{guideline.title}</h3>
+              <ul>
+                {guideline.items.map((item) => (
+                  <li key={item}>{item}</li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </section>
       </div>
     </section>
   );
