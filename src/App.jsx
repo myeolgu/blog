@@ -1,9 +1,11 @@
 import { useEffect, useMemo, useState } from "react";
-import { ArrowUp, ChevronDown, FileCode2, Folder, FolderTree, Search } from "lucide-react";
+import { ArrowUp, ChevronDown, Download, FileCode2, Folder, FolderTree, Search } from "lucide-react";
+import { aiInstructionFiles, aiInstructionTree } from "./data/ai-instructions";
 import { posts } from "./posts";
 
 const categories = ["All", "HTML", "CSS", "JavaScript", "React", "Browser", "AI"];
 const postsPerPage = 9;
+const textEncoder = new TextEncoder();
 const aiGuidelines = [
   {
     title: "규칙 1 - 코딩 전에 생각하세요",
@@ -110,6 +112,100 @@ const aiGuidelines = [
     ],
   },
 ];
+
+function writeUint16(view, offset, value) {
+  view.setUint16(offset, value, true);
+}
+
+function writeUint32(view, offset, value) {
+  view.setUint32(offset, value, true);
+}
+
+function getCrc32(bytes) {
+  let crc = 0xffffffff;
+
+  for (const byte of bytes) {
+    crc ^= byte;
+
+    for (let bit = 0; bit < 8; bit += 1) {
+      crc = (crc >>> 1) ^ (crc & 1 ? 0xedb88320 : 0);
+    }
+  }
+
+  return (crc ^ 0xffffffff) >>> 0;
+}
+
+function createZip(files) {
+  const localFiles = [];
+  const centralFiles = [];
+  let offset = 0;
+
+  for (const file of files) {
+    const name = textEncoder.encode(file.path);
+    const content = textEncoder.encode(file.content);
+    const crc = getCrc32(content);
+    const localFile = new Uint8Array(30 + name.length + content.length);
+    const localView = new DataView(localFile.buffer);
+
+    writeUint32(localView, 0, 0x04034b50);
+    writeUint16(localView, 4, 20);
+    writeUint32(localView, 14, crc);
+    writeUint32(localView, 18, content.length);
+    writeUint32(localView, 22, content.length);
+    writeUint16(localView, 26, name.length);
+    localFile.set(name, 30);
+    localFile.set(content, 30 + name.length);
+    localFiles.push(localFile);
+
+    const centralFile = new Uint8Array(46 + name.length);
+    const centralView = new DataView(centralFile.buffer);
+
+    writeUint32(centralView, 0, 0x02014b50);
+    writeUint16(centralView, 4, 20);
+    writeUint16(centralView, 6, 20);
+    writeUint32(centralView, 16, crc);
+    writeUint32(centralView, 20, content.length);
+    writeUint32(centralView, 24, content.length);
+    writeUint16(centralView, 28, name.length);
+    writeUint32(centralView, 42, offset);
+    centralFile.set(name, 46);
+    centralFiles.push(centralFile);
+    offset += localFile.length;
+  }
+
+  const centralSize = centralFiles.reduce((size, file) => size + file.length, 0);
+  const endRecord = new Uint8Array(22);
+  const endView = new DataView(endRecord.buffer);
+
+  writeUint32(endView, 0, 0x06054b50);
+  writeUint16(endView, 8, files.length);
+  writeUint16(endView, 10, files.length);
+  writeUint32(endView, 12, centralSize);
+  writeUint32(endView, 16, offset);
+
+  return new Blob([...localFiles, ...centralFiles, endRecord], { type: "application/zip" });
+}
+
+function downloadAiInstructions() {
+  const archive = createZip(aiInstructionFiles);
+  const url = URL.createObjectURL(archive);
+  const link = document.createElement("a");
+
+  link.href = url;
+  link.download = "ai-instructions.zip";
+  link.click();
+  URL.revokeObjectURL(url);
+}
+
+function downloadInstruction(file) {
+  const url = URL.createObjectURL(new Blob([file.content], { type: "text/markdown;charset=utf-8" }));
+  const link = document.createElement("a");
+
+  link.href = url;
+  link.download = file.path.split("/").at(-1);
+  link.click();
+  URL.revokeObjectURL(url);
+}
 
 function getPostCategories(post) {
   return post.categories ?? [post.category];
@@ -294,10 +390,9 @@ export default function App() {
 }
 
 function AiPage() {
-  const [showGuide, setShowGuide] = useState(false);
-  const [isCodexOpen, setIsCodexOpen] = useState(false);
+  const [selectedInstruction, setSelectedInstruction] = useState(null);
 
-  if (!showGuide) {
+  if (!selectedInstruction) {
     return (
       <section className="ai-page" aria-labelledby="ai-title">
         <header className="ai-heading">
@@ -305,6 +400,10 @@ function AiPage() {
             <h2 id="ai-title">AI 지침 지도</h2>
             <p>프로젝트 작업에 사용할 AI 지침을 <code>.codex/skills/</code>에 분류해 정리합니다.</p>
           </div>
+          <button className="ai-download" type="button" onClick={downloadAiInstructions}>
+            <Download aria-hidden="true" size={17} />
+            AI 지침 다운로드
+          </button>
         </header>
         <div className="ai-map" aria-label="Codex 작업 지침 마인드맵">
           <div className="map-toolbar">
@@ -312,48 +411,9 @@ function AiPage() {
             <span className="map-toolbar-status">CODEX SKILLS</span>
           </div>
           <div className="map-tree">
-            <button className="map-agents" type="button" onClick={() => setShowGuide(true)}>
-              <FileCode2 aria-hidden="true" size={20} strokeWidth={2.2} />
-              <span>
-                <strong>AGENTS.md</strong>
-                <small>프로젝트 공통 작업 지침</small>
-              </span>
-              <span className="map-skills-open">열기 →</span>
-            </button>
-            <div className="map-codex">
-              <button
-                aria-controls="codex-skills"
-                aria-expanded={isCodexOpen}
-                className="map-codex-head"
-                type="button"
-                onClick={() => setIsCodexOpen((isOpen) => !isOpen)}
-              >
-                <FolderTree aria-hidden="true" size={24} strokeWidth={2.2} />
-                <span>
-                  <strong>.codex</strong>
-                  <small>Codex 설정과 작업 도구</small>
-                </span>
-                <ChevronDown aria-hidden="true" className={isCodexOpen ? "map-chevron is-open" : "map-chevron"} size={19} />
-              </button>
-              <div className={isCodexOpen ? "map-codex-body is-open" : "map-codex-body"} id="codex-skills">
-                <div className="map-codex-content">
-                  <div className="map-skills">
-                    <Folder aria-hidden="true" size={21} strokeWidth={2.2} />
-                    <span>
-                      <strong>skills</strong>
-                      <small>기능별 작업 지침</small>
-                    </span>
-                  </div>
-                  <div className="map-styles">
-                    <Folder aria-hidden="true" size={18} strokeWidth={2.1} />
-                    <span>
-                      <strong>styles</strong>
-                      <small>스타일 관련 작업 지침</small>
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </div>
+            {aiInstructionTree.children.map((node) => (
+              <InstructionTree key={node.name} node={node} onOpenFile={setSelectedInstruction} />
+            ))}
           </div>
         </div>
       </section>
@@ -364,31 +424,55 @@ function AiPage() {
     <section className="ai-page" aria-labelledby="ai-title">
       <header className="ai-heading">
         <div>
-          <button className="ai-back" type="button" onClick={() => setShowGuide(false)}>
+          <button className="ai-back" type="button" onClick={() => setSelectedInstruction(null)}>
             AI 지침 지도
           </button>
-          <h2 id="ai-title">Codex 작업 지침</h2>
-          <p>프로젝트에서 Codex와 AI 도구가 작업할 때 따르는 공통 원칙입니다.</p>
+          <h2 id="ai-title">{selectedInstruction.path}</h2>
+          <p>AI 지침 지도와 다운로드 ZIP에 동일하게 포함되는 원본 파일입니다.</p>
         </div>
-        <a className="ai-download" download="AGENTS.md" href={`${import.meta.env.BASE_URL}ai-guidelines.md`}>
+        <button className="ai-download" type="button" onClick={() => downloadInstruction(selectedInstruction)}>
           MD 다운로드
-        </a>
+        </button>
       </header>
       <div className="ai-guides">
         <section className="ai-guide" aria-label="Codex 작업 지침">
-          {aiGuidelines.map((guideline) => (
-            <div className="ai-rule" key={guideline.title}>
-              <h3>{guideline.title}</h3>
-              <ul>
-                {guideline.items.map((item) => (
-                  <li key={item}>{item}</li>
-                ))}
-              </ul>
-            </div>
-          ))}
+          <pre>{selectedInstruction.content}</pre>
         </section>
       </div>
     </section>
+  );
+}
+
+function InstructionTree({ node, onOpenFile }) {
+  const [isOpen, setIsOpen] = useState(node.name === "ai");
+  const isFile = Boolean(node.file);
+
+  if (isFile) {
+    return (
+      <button className="map-file" type="button" onClick={() => onOpenFile(node.file)}>
+        <FileCode2 aria-hidden="true" size={17} />
+        <span>{node.name}</span>
+      </button>
+    );
+  }
+
+  const FolderIcon = node.name === ".codex" ? FolderTree : Folder;
+
+  return (
+    <div className="map-folder">
+      <button aria-expanded={isOpen} className="map-folder-head" type="button" onClick={() => setIsOpen((open) => !open)}>
+        <FolderIcon aria-hidden="true" size={node.name === "ai" ? 24 : 20} />
+        <span>{node.name}</span>
+        <ChevronDown aria-hidden="true" className={isOpen ? "map-chevron is-open" : "map-chevron"} size={18} />
+      </button>
+      <div className={isOpen ? "map-children is-open" : "map-children"}>
+        <div>
+          {node.children.map((child) => (
+            <InstructionTree key={child.name} node={child} onOpenFile={onOpenFile} />
+          ))}
+        </div>
+      </div>
+    </div>
   );
 }
 
