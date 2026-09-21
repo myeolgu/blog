@@ -10,6 +10,11 @@ export default function PostDetail({ nextPost, post, previousPost }) {
         <div className="post-article-meta">
           <span>{post.author}</span>
           <time dateTime={post.date}>{post.date}</time>
+          {post.sourceUrl && (
+            <a href={post.sourceUrl} rel="noopener noreferrer" target="_blank">
+              원문 보기
+            </a>
+          )}
         </div>
         <ul className="tag-list" aria-label={`${post.title} tags`}>
           {post.tags.map((tag) => (
