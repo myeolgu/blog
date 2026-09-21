@@ -1,3 +1,5 @@
+import { assetUrl } from "../../lib/asset";
+
 export const scssPxToRemPost = {
   id: "scss-px-to-rem",
   title: "AI를 활용한 SCSS px → rem 일괄 전환",
@@ -25,7 +27,7 @@ function ScssPxToRemContent() {
 
       <figure>
         <img
-          src="/posts/scss-px-to-rem-files.png"
+          src={assetUrl("/posts/scss-px-to-rem-files.png")}
           alt="px 단위를 rem으로 전환하며 수정된 SCSS 파일 목록"
         />
         <figcaption>px 단위를 rem으로 전환하며 수정한 SCSS 파일 목록</figcaption>

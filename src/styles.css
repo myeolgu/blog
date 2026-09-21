@@ -1,6 +1,6 @@
 @font-face {
   font-family: "Pretendard Variable";
-  src: url("/fonts/PretendardVariable.woff2") format("woff2");
+  src: url("./fonts/PretendardVariable.woff2") format("woff2");
   font-weight: 45 920;
   font-style: normal;
   font-display: swap;
@@ -83,7 +83,9 @@ button {
   gap: 18px;
 }
 
-.site-nav button {
+.site-nav a {
+  display: inline-flex;
+  align-items: center;
   min-height: 34px;
   padding: 0 2px;
   border: 0;
@@ -95,12 +97,12 @@ button {
   font-weight: 600;
 }
 
-.site-nav button:hover,
-.site-nav button.is-active {
+.site-nav a:hover,
+.site-nav a.is-active {
   color: #1f6f5b;
 }
 
-.site-nav button.is-active {
+.site-nav a.is-active {
   border-bottom-color: #1f6f5b;
 }
 
@@ -902,6 +904,9 @@ p {
 }
 
 .post-navigation-list {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   min-width: 4rem;
   padding: 0 0.625rem;
   border: 1px solid #1f6f5b;
@@ -965,6 +970,7 @@ p {
 }
 
 .post-card {
+  position: relative;
   display: grid;
   grid-template-rows: 1.625rem 3.75rem 5.1rem auto;
   gap: 14px;
@@ -987,9 +993,19 @@ p {
   transform: translateY(-2px);
 }
 
-.post-card:focus-visible {
+.post-card:has(.post-card-link:focus-visible) {
   outline: 3px solid rgba(31, 111, 91, 0.35);
   outline-offset: 3px;
+}
+
+.post-card-link {
+  outline: none;
+}
+
+.post-card-link::after {
+  position: absolute;
+  inset: 0;
+  content: "";
 }
 
 .post-card-featured {

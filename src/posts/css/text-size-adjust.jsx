@@ -1,3 +1,5 @@
+import { assetUrl } from "../../lib/asset";
+
 export const textSizeAdjustPost = {
   id: "text-size-adjust",
   title: "text-size-adjust",
@@ -46,7 +48,7 @@ function TextSizeAdjustContent() {
 
       <figure>
         <img
-          src="/posts/text-size-adjust.png"
+          src={assetUrl("/posts/text-size-adjust.png")}
           alt="Can I use 사이트의 CSS text-size-adjust 브라우저 지원 현황"
         />
         <figcaption>Can I use 기준 CSS text-size-adjust 브라우저 지원 현황</figcaption>

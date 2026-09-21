@@ -2,7 +2,7 @@
 
 ## 목적
 
-모든 글은 `src/App.jsx`의 `PostDetail`이 렌더링하는 공통 상세 레이아웃을 사용한다. 글 파일은 콘텐츠만 제공하며, 자체적인 바깥 article, header, 메타데이터, 하단 내비게이션을 추가하면 안 된다.
+모든 글은 `src/components/PostDetail.jsx`가 렌더링하는 공통 상세 레이아웃을 사용한다. 글 파일은 콘텐츠만 제공하며, 자체적인 바깥 article, header, 메타데이터, 하단 내비게이션을 추가하면 안 된다. 글은 서버 컴포넌트로 렌더링되므로 훅이나 브라우저 API가 필요한 부분은 `"use client"`를 선언한 별도 컴포넌트(`src/components`)로 분리한다. `public`의 에셋 경로는 `assetUrl()`(`src/lib/asset.js`)로 감싼다.
 
 ## 글 데이터
 

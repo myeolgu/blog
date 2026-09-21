@@ -8,7 +8,7 @@ description: 이 저장소의 React 블로그 애플리케이션을 구축하고
 ## 작업 흐름
 
 1. 수정하기 전에 기존 프로젝트 구조를 확인한다.
-2. 사용자가 다른 스택을 요청하지 않는 한 현재 React/Vite 규약을 유지한다.
+2. 사용자가 다른 스택을 요청하지 않는 한 현재 Next.js(App Router, 정적 export) 규약을 유지한다.
 3. UI 변경은 컴포넌트 기반으로 작성하고, 재사용 가능한 요소는 `src/components`에 둔다.
 4. 실제 CMS, API, 데이터베이스를 도입하기 전까지 콘텐츠 형태의 데이터는 `src/data`에 둔다.
 5. 접근성 있는 HTML, 시맨틱 랜드마크, 키보드 친화적인 컨트롤, 반응형 CSS를 우선한다.
@@ -16,11 +16,12 @@ description: 이 저장소의 React 블로그 애플리케이션을 구축하고
 
 ## 프로젝트 구조
 
-- 앱 셸: `src/App.jsx`
-- React 진입점: `src/main.jsx`
+- 라우트: `src/app` (`/`, `/posts/[id]`, `/ai`)
+- 공통 레이아웃: `src/app/layout.jsx`, `src/components/SiteShell.jsx`
 - 전역 스타일: `src/styles.css`
 - 재사용 UI: `src/components`
-- 임시 콘텐츠 데이터: `src/data`
+- 블로그 글: `src/posts`
+- 유틸리티: `src/lib`
 - 정적 에셋: `public`
 
 ## React 규칙
