@@ -415,17 +415,17 @@ function AiPage() {
         <header className="ai-heading">
           <div>
             <h2 id="ai-title">AI 지침 지도</h2>
-            <p>프로젝트 작업에 사용할 AI 지침을 <code>.codex/skills/</code>에 분류해 정리합니다.</p>
+            <p>프로젝트 작업에 사용할 AI 지침을 <code>.claude/skills/</code>에 분류해 정리합니다.</p>
           </div>
           <button className="ai-download" type="button" onClick={downloadAiInstructions}>
             <Download aria-hidden="true" size={17} />
             AI 지침 다운로드
           </button>
         </header>
-        <div className="ai-map" aria-label="Codex 작업 지침 마인드맵">
+        <div className="ai-map" aria-label="Claude 작업 지침 마인드맵">
           <div className="map-toolbar">
-            <span className="map-toolbar-path">BLOG <b>/</b> .codex <b>/</b> skills</span>
-            <span className="map-toolbar-status">CODEX SKILLS</span>
+            <span className="map-toolbar-path">BLOG <b>/</b> .claude <b>/</b> skills</span>
+            <span className="map-toolbar-status">CLAUDE SKILLS</span>
           </div>
           <div className="map-tree">
             {aiInstructionTree.children.map((node) => (
@@ -449,7 +449,7 @@ function AiPage() {
         </button>
       </header>
       <div className="ai-guides">
-        <section className="ai-guide" aria-label="Codex 작업 지침">
+        <section className="ai-guide" aria-label="Claude 작업 지침">
           <pre>{selectedInstruction.content}</pre>
         </section>
       </div>
@@ -475,7 +475,7 @@ function InstructionTree({ node, onOpenFile }) {
     );
   }
 
-  const FolderIcon = node.name === ".codex" ? FolderTree : Folder;
+  const FolderIcon = node.name === ".claude" ? FolderTree : Folder;
 
   return (
     <div className="map-folder">
