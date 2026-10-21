@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Search } from "lucide-react";
 
-const categories = ["All", "HTML", "CSS", "JavaScript", "React", "Browser", "AI"];
+const categories = ["All", "HTML", "CSS", "JavaScript", "React", "Browser", "AI", "Nexacro"];
 const postsPerPage = 9;
 
 export default function PostList({ posts }) {
