@@ -129,11 +129,6 @@ function NexacroReviewContent() {
         <strong>보험 같은 기술 스펙트럼</strong>이 된다고 생각합니다. 모두가 최신 기술과 AI만 볼
         때, 국내 기업 환경에 깊이 자리 잡은 도구를 함께 익혀 두는 것도 나쁘지 않은 선택입니다.
       </p>
-
-      <figure>
-        <img src={assetUrl("/posts/nexacro-review-2.webp")} alt="Gemini가 정리한 넥사크로 학습의 결론" />
-        <figcaption>Gemini 3.0 Pro가 정리한 넥사크로에 대한 생각</figcaption>
-      </figure>
     </>
   );
 }
