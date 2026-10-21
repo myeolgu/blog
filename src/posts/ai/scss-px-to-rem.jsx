@@ -27,7 +27,7 @@ function ScssPxToRemContent() {
 
       <figure>
         <img
-          src={assetUrl("/posts/scss-px-to-rem-files.png")}
+          src={assetUrl("/posts/scss-px-to-rem-files.webp")}
           alt="px 단위를 rem으로 전환하며 수정된 SCSS 파일 목록"
         />
         <figcaption>px 단위를 rem으로 전환하며 수정한 SCSS 파일 목록</figcaption>
