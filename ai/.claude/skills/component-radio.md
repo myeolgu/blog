@@ -1,0 +1,53 @@
+# Radio
+
+라디오 버튼은 React 컴포넌트가 아니라 정해진 마크업 구조를 그대로 사용하는 정적 HTML 패턴이다.
+
+## 기본 구조
+
+```html
+<div class="component-input">
+  <label class="radio-inner">
+    <input type="radio" id="radio_id" name="radio_group_name" aria-label="항목 이름" />
+  </label>
+</div>
+```
+
+## 텍스트가 있는 라디오
+
+```html
+<div class="component-input">
+  <label class="radio-inner">
+    <input type="radio" id="temp_radio_0201" name="temp_radio_0200" />
+    <span class="radio-item">
+      <span class="radio-txt">Radio default</span>
+    </span>
+  </label>
+</div>
+```
+
+## 상태
+
+- 선택: `input`에 `checked` 속성을 추가한다.
+- 비활성화: `input`에 `disabled` 속성을 추가한다.
+- 선택 + 비활성화: 둘 다 추가한다.
+
+## 클래스 구조
+
+- `.radio-inner`: 라디오와 라벨을 감싸는 컨테이너
+- `.radio-item`: 라디오와 텍스트를 함께 그룹화하는 컨테이너
+- `.radio-txt`: 라디오 옆 텍스트
+
+## 접근성
+
+- 각 라디오에 고유한 `id`를 부여한다.
+- 같은 그룹의 라디오는 동일한 `name`을 공유한다.
+- `label`로 감싸 클릭 영역을 넓히고, 텍스트가 있으면 `.radio-txt`로 시각적 라벨을 제공한다.
+- 텍스트 없는 기본 라디오(위 "기본 구조")는 접근 가능한 이름이 없으므로 `input`에 `aria-label`을 준다.
+- 포커스 상태는 스타일에 이미 정의되어 있다: `input[type='radio']:focus-visible { outline: 1px solid
+  $line-000000; }`(`_radio.scss:53-55`). 가이드에는 `-webkit-focus-ring-color auto 1px`로 적혀 있지만
+  실제 코드는 이 값이다.
+
+## 참고
+
+기본 클래스는 `.component-input`이다(`src/assets/styles/components/_radio.scss`). 체크박스와 같은 래퍼를 `Input.js`가 초기화하지만, 라디오 전용 동작은
+없고 `disabled`일 때 `.input-disabled`를 붙이는 정도다(`component-checkbox` 스킬 참고). `.component-radio`라는 클래스는 만들지 않는다.
